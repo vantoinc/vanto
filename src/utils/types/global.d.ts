@@ -1,11 +1,8 @@
 import { z } from "zod";
-
-const env = z.object({
-  DATABASE_URL: z.string(),
-});
+import { env } from "./env";
 
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends z.infer<typeof env> { }
+    interface ProcessEnv extends z.infer<typeof env> {}
   }
 }
