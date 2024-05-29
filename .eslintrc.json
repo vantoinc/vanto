@@ -13,6 +13,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "quotes": "warn"
+    "quotes": "warn",
+    "react/react-in-jsx-scope": "off"
   }
 }
