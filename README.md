@@ -21,8 +21,8 @@ pnpm dev
 # or
 bun dev
 ```
-Open http://localhost:3000 with your favorite browser to see your project.
 
+Open http://localhost:3000 with your favorite browser to see your project.
 
 ## Deploy on Vercel
 
