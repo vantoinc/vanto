@@ -24,8 +24,5 @@ bun dev
 
 Open http://localhost:3000 with your favorite browser to see your project.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Support
+If you found Vanto helpful, consider supporting it with a ⭐ Star. It helps the repository grow and provides the required motivation to continue maintaining the project. Thank you!
