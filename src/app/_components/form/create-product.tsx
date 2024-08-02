@@ -40,12 +40,13 @@ export function CreateProduct() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await createProduct(values);
+    setOpen(false);
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="secondary" onClick={handleOpen}>
+        <Button size="sm" onClick={handleOpen}>
           Create product
         </Button>
       </DialogTrigger>
