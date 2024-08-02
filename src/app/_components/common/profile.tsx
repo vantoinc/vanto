@@ -6,13 +6,13 @@ import Image from "next/image";
 export function Profile() {
   const session = useSession();
   return (
-    <div className="flex items-center gap-2 border-b pb-2">
+    <div className="mt-auto flex items-center gap-3 border-t pt-2">
       <Image
         src={session.data?.user?.image || ""}
         alt="user"
         width={80}
         height={80}
-        className="size-10 rounded-md"
+        className="size-8 rounded-md"
       />
       <div>
         <p>{session.data?.user?.name}</p>

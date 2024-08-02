@@ -4,8 +4,9 @@ import {
   Package,
   ShoppingCart,
 } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
 import { Profile } from "../_components/common/profile";
+import { SideLink } from "../_components/common/side-link";
 
 export default function LayoutDashboard({
   children,
@@ -16,34 +17,32 @@ export default function LayoutDashboard({
     <>
       <div className="grid min-h-screen w-full grid-cols-[240px_1fr]">
         <div className="flex h-full flex-col gap-2 border-r bg-muted/40 p-4">
+          <h1 className="mb-8 flex items-center gap-2 text-xl font-bold">
+            <Image src="/icon.png" alt="tilby" width={30} height={30} />
+            Tilby
+          </h1>
+
+          <SideLink
+            path="/dashboard"
+            title="Dashboard"
+            Icon={LayoutDashboardIcon}
+          />
+
+          <SideLink path="/dashboard/catalog" title="Catalog" Icon={Package} />
+
+          <SideLink
+            path="/dashboard/orders"
+            title="Orders"
+            Icon={ShoppingCart}
+          />
+
+          <SideLink
+            path="/dashboard/analytics"
+            title="Analytics"
+            Icon={ChartLine}
+          />
+
           <Profile />
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-2 rounded-md p-2 text-xl text-muted-foreground"
-          >
-            <LayoutDashboardIcon size={20} /> Dashboard
-          </Link>
-
-          <Link
-            href="/dashboard/catalog"
-            className="flex items-center gap-2 rounded-md p-2 text-xl text-muted-foreground"
-          >
-            <Package size={20} /> Catalog
-          </Link>
-
-          <Link
-            href="/dashboard/orders"
-            className="flex items-center gap-2 rounded-md p-2 text-xl text-muted-foreground"
-          >
-            <ShoppingCart size={20} /> Orders
-          </Link>
-
-          <Link
-            href="/dashboard/analytics"
-            className="flex items-center gap-2 rounded-md p-2 text-xl text-muted-foreground"
-          >
-            <ChartLine size={20} /> Analytics
-          </Link>
         </div>
 
         <div className="p-4">
