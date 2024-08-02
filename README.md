@@ -25,4 +25,5 @@ bun dev
 Open http://localhost:3000 with your favorite browser to see your project.
 
 ## Support
+
 If you found Vanto helpful, consider supporting it with a ⭐ Star. It helps the repository grow and provides the required motivation to continue maintaining the project. Thank you!
