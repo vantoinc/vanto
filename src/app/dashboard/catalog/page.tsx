@@ -11,9 +11,18 @@ import {
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DelEdit } from "@/app/_components/common/del-edit";
+import { Product, ProductSummary } from "@/utils/types/product";
 
 async function Products() {
   const products = await getProducts();
+
+  const productData = (product: Product): ProductSummary => ({
+    name: product.name,
+    sku: product.sku,
+    price: product.price,
+    description: product.description ?? undefined,
+  });
+
   return products.map((product) => (
     <>
       <TableRow>
@@ -21,7 +30,7 @@ async function Products() {
         <TableCell>{product.name}</TableCell>
         <TableCell>{product.price}</TableCell>
         <TableCell className="text-right">
-          <DelEdit />
+          <DelEdit product={productData(product)} id={product.id} />
         </TableCell>
       </TableRow>
     </>
@@ -66,6 +75,7 @@ export default function DashboardCatalog() {
               <TableHead className="w-[100px]">SKU</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Price</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

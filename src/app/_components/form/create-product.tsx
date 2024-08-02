@@ -21,16 +21,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createProduct } from "@/app/dashboard/catalog/action";
+import { createProduct, updateProduct } from "@/app/dashboard/catalog/action";
 import { formSchema } from "@/utils/types/validations";
 import { Loader } from "lucide-react";
 import { useState } from "react";
+import { ProductSummary } from "@/utils/types/product";
 
-export function CreateProduct() {
+interface Props {
+  id?: number;
+  product?: ProductSummary;
+  update?: boolean;
+}
+
+export function CreateProduct({ id, product, update = false }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: product,
   });
 
   const handleOpen = () => {
@@ -39,20 +47,33 @@ export function CreateProduct() {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createProduct(values);
+    if (update) {
+      if (id) {
+        await updateProduct(id, values);
+      }
+    } else {
+      await createProduct(values);
+    }
     setOpen(false);
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" onClick={handleOpen}>
-          Create product
+        <Button
+          size="sm"
+          onClick={handleOpen}
+          variant={update ? "ghost" : "default"}
+          className="block w-full"
+        >
+          {update ? "Edit" : "Create Product"}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create product</DialogTitle>
+          <DialogTitle>
+            {update ? "Edit product" : "Create Product"}
+          </DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -117,7 +138,7 @@ export function CreateProduct() {
               {form.formState.isSubmitting && (
                 <Loader size={14} className="mr-1 animate-spin" />
               )}
-              Create
+              {update ? "Update" : "Create"}
             </Button>
           </form>
         </Form>
