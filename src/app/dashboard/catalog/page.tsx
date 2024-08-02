@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DelEdit } from "@/app/_components/common/del-edit";
 
 async function Products() {
   const products = await getProducts();
@@ -19,6 +20,9 @@ async function Products() {
         <TableCell className="font-medium">{product.sku}</TableCell>
         <TableCell>{product.name}</TableCell>
         <TableCell>{product.price}</TableCell>
+        <TableCell className="text-right">
+          <DelEdit />
+        </TableCell>
       </TableRow>
     </>
   ));
