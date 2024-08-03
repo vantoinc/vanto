@@ -3,6 +3,7 @@ import { getProducts } from "./action";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -12,9 +13,15 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DelEdit } from "@/app/_components/common/del-edit";
 import { Product, ProductSummary } from "@/utils/types/product";
+import { PrevNext } from "@/app/_components/common/prev-next";
 
-async function Products() {
-  const products = await getProducts();
+const ITEMS_PER_PAGE = 10;
+
+async function Products({ currentPage }: { currentPage: number }) {
+  const { products, total } = await getProducts(currentPage, ITEMS_PER_PAGE);
+  const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+  const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   const productData = (product: Product): ProductSummary => ({
     name: product.name,
@@ -23,41 +30,53 @@ async function Products() {
     description: product.description ?? undefined,
   });
 
-  return products.map((product) => (
-    <>
-      <TableRow>
-        <TableCell className="font-medium">{product.sku}</TableCell>
-        <TableCell>{product.name}</TableCell>
-        <TableCell>{product.price}</TableCell>
-        <TableCell className="text-right">
-          <DelEdit product={productData(product)} id={product.id} />
-        </TableCell>
-      </TableRow>
-    </>
-  ));
-}
-
-function ProductLoader() {
   return (
     <>
-      {Array.from({ length: 5 }).map((_, index) => (
-        <TableRow key={index}>
-          <TableCell>
-            <Skeleton className="h-[20px] w-[100px]" />
-          </TableCell>
-          <TableCell>
-            <Skeleton className="h-[20px] w-[100px]" />
-          </TableCell>
-          <TableCell>
-            <Skeleton className="h-[20px] w-[100px]" />
-          </TableCell>
-        </TableRow>
-      ))}
+      <TableBody>
+        {products.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell className="font-medium">{product.sku}</TableCell>
+            <TableCell>{product.name}</TableCell>
+            <TableCell>{product.price}</TableCell>
+            <TableCell className="text-right">
+              <DelEdit product={productData(product)} id={product.id} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableCaption className="text-left">
+        <p className="float-start">
+          Showing{" "}
+          <strong>
+            {start} - {end}
+          </strong>{" "}
+          of <strong>{total}</strong> products
+        </p>
+        <PrevNext page={currentPage} totalPages={totalPages} />
+      </TableCaption>
     </>
   );
 }
 
-export default function DashboardCatalog() {
+function ProductLoader() {
+  return Array.from({ length: 5 }).map((_, index) => (
+    <TableRow key={index}>
+      {Array.from({ length: 4 }).map((_, index) => (
+        <TableCell key={index}>
+          <Skeleton className="h-[20px] w-[100px]" />
+        </TableCell>
+      ))}
+    </TableRow>
+  ));
+}
+
+export default async function DashboardCatalog({
+  searchParams,
+}: {
+  searchParams: { page: number };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+
   return (
     <>
       <div className="flex">
@@ -68,7 +87,7 @@ export default function DashboardCatalog() {
         </div>
       </div>
 
-      <div className="my-4 overflow-hidden rounded-md border">
+      <div className="my-4">
         <Table>
           <TableHeader>
             <TableRow>
@@ -78,11 +97,9 @@ export default function DashboardCatalog() {
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            <Suspense fallback={<ProductLoader />}>
-              <Products />
-            </Suspense>
-          </TableBody>
+          <Suspense key={currentPage} fallback={<ProductLoader />}>
+            <Products currentPage={currentPage} />
+          </Suspense>
         </Table>
       </div>
     </>

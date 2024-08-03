@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/utils/libs/prisma";
-import { ProductSummary } from "@/utils/types/product";
+import { Product, ProductSummary } from "@/utils/types/product";
 import { formSchema } from "@/utils/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -11,10 +11,20 @@ export async function createProduct(value: z.infer<typeof formSchema>) {
   revalidatePath("/dashboard/catalog");
 }
 
-export async function getProducts() {
-  return await prisma.product.findMany({
-    orderBy: { id: "desc" },
-  });
+export async function getProducts(
+  page: number = 1,
+  itemsPerPage: number = 8,
+): Promise<{ products: Product[]; total: number }> {
+  const [products, total] = await prisma.$transaction([
+    prisma.product.findMany({
+      orderBy: { id: "desc" },
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage,
+    }),
+    prisma.product.count(),
+  ]);
+
+  return { products, total };
 }
 
 export async function updateProduct(id: number, value: ProductSummary) {
