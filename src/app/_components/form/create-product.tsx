@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { createProduct, updateProduct } from "@/app/dashboard/catalog/action";
 import { formSchema } from "@/utils/types/validations";
-import { Loader } from "lucide-react";
+import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/utils/types/product";
 
@@ -64,9 +64,15 @@ export function CreateProduct({ id, product, update = false }: Props) {
           size="sm"
           onClick={handleOpen}
           variant={update ? "ghost" : "default"}
-          className="block w-full"
+          className="w-full"
         >
-          {update ? "Edit" : "Create Product"}
+          {update ? (
+            "Edit"
+          ) : (
+            <>
+              <PlusCircle size={16} className="mr-1" /> Add Product
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent>

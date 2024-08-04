@@ -44,15 +44,17 @@ async function Products({ currentPage }: { currentPage: number }) {
           </TableRow>
         ))}
       </TableBody>
-      <TableCaption className="text-left">
-        <p className="float-start">
-          Showing{" "}
-          <strong>
-            {start} - {end}
-          </strong>{" "}
-          of <strong>{total}</strong> products
-        </p>
-        <PrevNext page={currentPage} totalPages={totalPages} />
+      <TableCaption>
+        <div className="flex items-center">
+          <p>
+            Showing{" "}
+            <strong>
+              {start} to {end}
+            </strong>{" "}
+            of <strong>{total}</strong> products
+          </p>
+          <PrevNext page={currentPage} totalPages={totalPages} />
+        </div>
       </TableCaption>
     </>
   );
@@ -79,7 +81,7 @@ export default async function DashboardCatalog({
 
   return (
     <>
-      <div className="flex">
+      <div className="mb-4 flex items-center">
         <h1 className="text-2xl font-bold">Catalog</h1>
 
         <div className="ml-auto">
@@ -87,21 +89,19 @@ export default async function DashboardCatalog({
         </div>
       </div>
 
-      <div className="my-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">SKU</TableHead>
-              <TableHead>Product</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead></TableHead>
-            </TableRow>
-          </TableHeader>
-          <Suspense key={currentPage} fallback={<ProductLoader />}>
-            <Products currentPage={currentPage} />
-          </Suspense>
-        </Table>
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">SKU</TableHead>
+            <TableHead>Product</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+        <Suspense key={currentPage} fallback={<ProductLoader />}>
+          <Products currentPage={currentPage} />
+        </Suspense>
+      </Table>
     </>
   );
 }

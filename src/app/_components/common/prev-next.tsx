@@ -29,7 +29,7 @@ export function PrevNext({
   }
 
   return (
-    <form className="float-right flex items-center gap-2 align-top">
+    <form className="ml-auto flex items-center gap-2 align-top">
       <Button
         formAction={prevPage}
         variant="ghost"
