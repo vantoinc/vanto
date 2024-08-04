@@ -28,6 +28,7 @@ async function Products({ currentPage }: { currentPage: number }) {
     sku: product.sku,
     price: product.price,
     description: product.description ?? undefined,
+    variants: product.variants,
   });
 
   return (

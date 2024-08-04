@@ -14,16 +14,28 @@ datasource db {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String?
   image_url   String?
-  sku         String   @unique
+  sku         String    @unique
   price       Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  variants    Variant[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([sku])
   @@index([name])
   @@map("catalog")
+}
+
+model Variant {
+  id         Int     @id @default(autoincrement())
+  name       String
+  quantity   Int
+  price      Float
+  product_id Int
+  Product    Product @relation(fields: [product_id], references: [id])
+
+  @@map("variant")
 }

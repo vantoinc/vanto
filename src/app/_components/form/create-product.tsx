@@ -26,6 +26,7 @@ import { formSchema } from "@/utils/types/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/utils/types/product";
+import { AddVariant } from "../common/add-variant";
 
 interface Props {
   id?: number;
@@ -140,6 +141,9 @@ export function CreateProduct({ id, product, update = false }: Props) {
                 )}
               />
             </div>
+
+            <AddVariant />
+
             <Button>
               {form.formState.isSubmitting && (
                 <Loader size={14} className="mr-1 animate-spin" />

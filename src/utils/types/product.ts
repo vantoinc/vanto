@@ -5,6 +5,7 @@ export type Product = {
   image_url: string | null;
   sku: string;
   price: number;
+  variants: Variant[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -14,4 +15,13 @@ export type ProductSummary = {
   sku: string;
   price: number;
   description?: string;
+  variants: Variant[];
+};
+
+type Variant = {
+  id: number;
+  name: string;
+  quantity: number;
+  price: number;
+  product_id: number;
 };
