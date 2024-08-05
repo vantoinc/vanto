@@ -7,6 +7,7 @@ import {
 import { Ellipsis } from "lucide-react";
 import { CreateProduct } from "../form/create-product";
 import { ProductSummary } from "@/utils/types/product";
+import { RemoveItem } from "../form/remove-item";
 
 interface Props {
   id?: number;
@@ -23,7 +24,9 @@ export function DelEdit({ id, product }: Props) {
         <DropdownMenuItem asChild>
           <CreateProduct update product={product} id={id} />
         </DropdownMenuItem>
-        <DropdownMenuItem>Remove</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <RemoveItem id={id} />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

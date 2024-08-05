@@ -74,3 +74,9 @@ export async function updateProduct(
 
   revalidatePath("/dashboard/catalog");
 }
+
+export async function removeProduct(id: number) {
+  await prisma.product.delete({ where: { id } });
+
+  revalidatePath("/dashboard/catalog");
+}

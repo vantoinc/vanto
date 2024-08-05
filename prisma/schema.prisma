@@ -35,7 +35,7 @@ model Variant {
   quantity   Int
   price      Float
   product_id Int
-  Product    Product @relation(fields: [product_id], references: [id])
+  Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@map("variant")
 }
