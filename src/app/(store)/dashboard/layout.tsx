@@ -4,6 +4,7 @@ import {
   ChartLine,
   LayoutDashboardIcon,
   Package,
+  Settings,
   ShoppingCart,
 } from "lucide-react";
 import Image from "next/image";
@@ -42,6 +43,12 @@ export default function LayoutDashboard({
             path="/dashboard/analytics"
             title="Analytics"
             Icon={ChartLine}
+          />
+
+          <SideLink
+            path="/dashboard/settings"
+            title="Settings"
+            Icon={Settings}
           />
 
           <Profile />

@@ -29,3 +29,8 @@ export const formSchema = z.object({
     }),
   ),
 });
+
+export const formStore = z.object({
+  name: z.string().min(1),
+  description: z.string().min(1),
+});
