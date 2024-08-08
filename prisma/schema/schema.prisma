@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Setting {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  Payment     Payment[]
+  Shipping    Shipping[]
+  Taxe        Texe[]
+
+  @@map("setting")
+}
+
+model Payment {
+  id           Int     @id @default(autoincrement())
+  name         String
+  description  String
+  api_key      String
+  private_key  String
+  url_callback String?
+  Setting      Setting @relation(fields: [setting_id], references: [id])
+  setting_id   Int
+
+  @@map("payment")
+}
+
+model Shipping {
+  id         Int     @id @default(autoincrement())
+  name       String
+  zone       String
+  country    String
+  cost       Float
+  Setting    Setting @relation(fields: [setting_id], references: [id])
+  setting_id Int
+
+  @@map("shipping")
+}
+
+model Texe {
+  id         Int     @id @default(autoincrement())
+  country    String
+  rate       Int
+  Setting    Setting @relation(fields: [setting_id], references: [id])
+  setting_id Int
+
+  @@map("taxe")
+}
