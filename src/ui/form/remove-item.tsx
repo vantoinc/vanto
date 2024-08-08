@@ -1,7 +1,7 @@
 "use client";
 
-import { removeProduct } from "@/app/dashboard/catalog/action";
-import { Button } from "@/components/ui/button";
+import { removeProduct } from "@/app/(store)/dashboard/catalog/action";
+import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/ui/shadcn/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Loader } from "lucide-react";
 import { useState, useTransition } from "react";

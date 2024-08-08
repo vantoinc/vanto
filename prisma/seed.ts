@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/libs/prisma";
+import { prisma } from "@/lib/prisma";
 
 async function main() {
   await prisma.setting.create({

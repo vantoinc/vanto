@@ -1,13 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/ui/shadcn/button";
+import { FormControl, FormField, FormItem, FormLabel } from "@/ui/shadcn/form";
+import { Input } from "@/ui/shadcn/input";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 

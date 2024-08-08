@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/shadcn/button";
 import { signIn } from "next-auth/react";
 
 export function GoogleProvider() {

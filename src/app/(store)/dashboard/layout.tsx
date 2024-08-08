@@ -7,8 +7,8 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Image from "next/image";
-import { Profile } from "../_components/common/profile";
-import { SideLink } from "../_components/common/side-link";
+import { Profile } from "@/ui/common/profile";
+import { SideLink } from "@/ui/common/side-link";
 
 export default function LayoutDashboard({
   children,

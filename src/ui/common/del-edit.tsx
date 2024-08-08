@@ -3,10 +3,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/ui/shadcn/dropdown-menu";
 import { Ellipsis } from "lucide-react";
 import { CreateProduct } from "../form/create-product";
-import { ProductSummary } from "@/utils/types/product";
+import { ProductSummary } from "@/types/product";
 import { RemoveItem } from "../form/remove-item";
 
 interface Props {

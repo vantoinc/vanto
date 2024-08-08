@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/ui/shadcn/dialog";
+import { Input } from "@/ui/shadcn/input";
+import { Textarea } from "@/ui/shadcn/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,12 +20,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { createProduct, updateProduct } from "@/app/dashboard/catalog/action";
-import { formSchema } from "@/utils/types/validations";
+} from "@/ui/shadcn/form";
+import {
+  createProduct,
+  updateProduct,
+} from "@/app/(store)/dashboard/catalog/action";
+import { formSchema } from "@/types/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
-import { ProductSummary } from "@/utils/types/product";
+import { ProductSummary } from "@/types/product";
 import { AddVariant } from "../common/add-variant";
 
 interface Props {

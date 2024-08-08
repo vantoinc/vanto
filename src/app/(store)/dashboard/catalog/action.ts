@@ -1,8 +1,8 @@
 "use server";
 
-import { prisma } from "@/utils/libs/prisma";
-import { Product } from "@/utils/types/product";
-import { formSchema } from "@/utils/types/validations";
+import { prisma } from "@/lib/prisma";
+import { Product } from "@/types/product";
+import { formSchema } from "@/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

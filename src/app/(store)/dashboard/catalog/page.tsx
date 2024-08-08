@@ -1,4 +1,4 @@
-import { CreateProduct } from "@/app/_components/form/create-product";
+import { CreateProduct } from "@/ui/form/create-product";
 import { getProducts } from "./action";
 import {
   Table,
@@ -8,12 +8,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/ui/shadcn/table";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DelEdit } from "@/app/_components/common/del-edit";
-import { Product, ProductSummary } from "@/utils/types/product";
-import { PrevNext } from "@/app/_components/common/prev-next";
+import { Skeleton } from "@/ui/shadcn/skeleton";
+import { DelEdit } from "@/ui/common/del-edit";
+import { Product, ProductSummary } from "@/types/product";
+import { PrevNext } from "@/ui/common/prev-next";
 
 const ITEMS_PER_PAGE = 10;
 
