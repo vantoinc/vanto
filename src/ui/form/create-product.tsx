@@ -79,7 +79,7 @@ export function CreateProduct({ id, product, update = false }: Props) {
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[480px] overflow-auto">
         <DialogHeader>
           <DialogTitle>
             {update ? "Edit product" : "Create Product"}
