@@ -14,6 +14,7 @@ import { Skeleton } from "@/ui/shadcn/skeleton";
 import { DelEdit } from "@/ui/common/del-edit";
 import { Product, ProductSummary } from "@/types/product";
 import { PrevNext } from "@/ui/common/prev-next";
+import { formatCurrency } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -38,7 +39,7 @@ async function Products({ currentPage }: { currentPage: number }) {
           <TableRow key={product.id}>
             <TableCell className="font-medium">{product.sku}</TableCell>
             <TableCell>{product.name}</TableCell>
-            <TableCell>{product.price}</TableCell>
+            <TableCell>{formatCurrency(product.price, "$")}</TableCell>
             <TableCell className="text-right">
               <DelEdit product={productData(product)} id={product.id} />
             </TableCell>
