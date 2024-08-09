@@ -5,12 +5,15 @@ model Product {
   image_url   String?
   sku         String    @unique
   price       Float
+  categoryId  Int?
   variants    Variant[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  Category    Category? @relation(fields: [categoryId], references: [id])
 
   @@index([sku])
   @@index([name])
+  @@index([categoryId])
   @@map("catalog")
 }
 
@@ -23,4 +26,10 @@ model Variant {
   Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@map("variant")
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Product Product[]
 }

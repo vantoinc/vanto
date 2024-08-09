@@ -21,6 +21,7 @@ export const formProduct = z.object({
   description: z.string().optional(),
   sku: z.string().min(1),
   price: typePrice,
+  categoryId: typeNumber.nullable().optional(),
   variants: z.array(
     z.object({
       name: z.string().min(1),

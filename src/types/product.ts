@@ -5,17 +5,23 @@ export type Product = {
   image_url: string | null;
   sku: string;
   price: number;
+  categoryId: number | null;
   variants: Variant[];
+  Category: Category | null;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type ProductSummary = {
+export type Category = {
+  id: number;
   name: string;
-  sku: string;
-  price: number;
+};
+
+export type ProductSummary = Pick<
+  Product,
+  "name" | "sku" | "price" | "categoryId" | "variants"
+> & {
   description?: string;
-  variants: Variant[];
 };
 
 type Variant = {

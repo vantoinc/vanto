@@ -29,15 +29,29 @@ import { formProduct } from "@/types/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/types/product";
-import { AddVariant } from "../common/add-variant";
+import { AddVariant } from "@/ui/common/add-variant";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/ui/shadcn/select";
+import { CreateCategory } from "./create-category";
 
 interface Props {
   id?: number;
   product?: ProductSummary;
   update?: boolean;
+  category: { id: number; name: string }[];
 }
 
-export function CreateProduct({ id, product, update = false }: Props) {
+export function CreateProduct({
+  id,
+  product,
+  update = false,
+  category,
+}: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formProduct>>({
@@ -79,7 +93,7 @@ export function CreateProduct({ id, product, update = false }: Props) {
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[480px] overflow-auto">
+      <DialogContent className="max-h-[calc(100vh-30px)] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             {update ? "Edit product" : "Create Product"}
@@ -108,14 +122,42 @@ export function CreateProduct({ id, product, update = false }: Props) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="description product..." {...field} />
+                    <Textarea placeholder="product description..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="flex items-center gap-2">
+            <div className="flex w-full items-end">
+              <FormField
+                control={form.control}
+                name="categoryId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {category.map((item) => (
+                          <SelectItem key={item.id} value={`${item.id}`}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+
+              <CreateCategory />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
               <FormField
                 control={form.control}
                 name="sku"

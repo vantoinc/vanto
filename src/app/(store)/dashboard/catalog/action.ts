@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { Product } from "@/types/product";
+import { Category, Product } from "@/types/product";
 import { formProduct } from "@/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -32,6 +32,7 @@ export async function getProducts(
     prisma.product.findMany({
       include: {
         variants: true,
+        Category: true,
       },
       orderBy: { id: "desc" },
       skip: (page - 1) * itemsPerPage,
@@ -79,4 +80,15 @@ export async function removeProduct(id: number) {
   await prisma.product.delete({ where: { id } });
 
   revalidatePath("/dashboard/catalog");
+}
+
+// Category
+
+export async function createCategory(data: Pick<Category, "name">) {
+  await prisma.category.create({ data });
+  revalidatePath("/dashboard/catalog");
+}
+
+export async function getCategory(): Promise<Category[]> {
+  return await prisma.category.findMany();
 }

@@ -1,5 +1,5 @@
 import { CreateProduct } from "@/ui/form/create-product";
-import { getProducts } from "./action";
+import { getCategory, getProducts } from "./action";
 import {
   Table,
   TableBody,
@@ -18,7 +18,13 @@ import { formatCurrency } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 10;
 
-async function Products({ currentPage }: { currentPage: number }) {
+async function Products({
+  currentPage,
+  category,
+}: {
+  currentPage: number;
+  category: { id: number; name: string }[];
+}) {
   const { products, total } = await getProducts(currentPage, ITEMS_PER_PAGE);
   const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
   const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
@@ -29,6 +35,7 @@ async function Products({ currentPage }: { currentPage: number }) {
     sku: product.sku,
     price: product.price,
     description: product.description ?? undefined,
+    categoryId: product.categoryId,
     variants: product.variants,
   });
 
@@ -39,9 +46,14 @@ async function Products({ currentPage }: { currentPage: number }) {
           <TableRow key={product.id}>
             <TableCell className="font-medium">{product.sku}</TableCell>
             <TableCell>{product.name}</TableCell>
+            <TableCell>{product.Category?.name ?? "No category"}</TableCell>
             <TableCell>{formatCurrency(product.price, "$")}</TableCell>
             <TableCell className="text-right">
-              <DelEdit product={productData(product)} id={product.id} />
+              <DelEdit
+                id={product.id}
+                product={productData(product)}
+                category={category}
+              />
             </TableCell>
           </TableRow>
         ))}
@@ -65,7 +77,7 @@ async function Products({ currentPage }: { currentPage: number }) {
 function ProductLoader() {
   return Array.from({ length: 5 }).map((_, index) => (
     <TableRow key={index}>
-      {Array.from({ length: 4 }).map((_, index) => (
+      {Array.from({ length: 5 }).map((_, index) => (
         <TableCell key={index}>
           <Skeleton className="h-[20px] w-[100px]" />
         </TableCell>
@@ -79,6 +91,7 @@ export default async function DashboardCatalog({
 }: {
   searchParams: { page: number };
 }) {
+  const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
@@ -87,7 +100,7 @@ export default async function DashboardCatalog({
         <h1 className="text-2xl font-bold">Catalog</h1>
 
         <div className="ml-auto">
-          <CreateProduct />
+          <CreateProduct category={category} />
         </div>
       </div>
 
@@ -96,12 +109,13 @@ export default async function DashboardCatalog({
           <TableRow>
             <TableHead className="w-[100px]">SKU</TableHead>
             <TableHead>Product</TableHead>
+            <TableHead>Category</TableHead>
             <TableHead>Price</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <Suspense key={currentPage} fallback={<ProductLoader />}>
-          <Products currentPage={currentPage} />
+          <Products currentPage={currentPage} category={category} />
         </Suspense>
       </Table>
     </>
