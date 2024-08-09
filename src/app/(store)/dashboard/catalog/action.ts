@@ -2,11 +2,11 @@
 
 import { prisma } from "@/lib/prisma";
 import { Product } from "@/types/product";
-import { formSchema } from "@/types/validations";
+import { formProduct } from "@/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export async function createProduct(data: z.infer<typeof formSchema>) {
+export async function createProduct(data: z.infer<typeof formProduct>) {
   const { variants, ...productData } = data;
   await prisma.product.create({
     data: {
@@ -45,7 +45,7 @@ export async function getProducts(
 
 export async function updateProduct(
   id: number,
-  data: z.infer<typeof formSchema>,
+  data: z.infer<typeof formProduct>,
 ) {
   const { variants, ...productData } = data;
   await prisma.$transaction(async (tx) => {

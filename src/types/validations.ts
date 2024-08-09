@@ -16,7 +16,7 @@ const typeNumber = z.union([
   z.number().min(1),
 ]);
 
-export const formSchema = z.object({
+export const formProduct = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   sku: z.string().min(1),

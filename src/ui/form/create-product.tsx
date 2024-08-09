@@ -25,7 +25,7 @@ import {
   createProduct,
   updateProduct,
 } from "@/app/(store)/dashboard/catalog/action";
-import { formSchema } from "@/types/validations";
+import { formProduct } from "@/types/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/types/product";
@@ -40,8 +40,8 @@ interface Props {
 export function CreateProduct({ id, product, update = false }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof formProduct>>({
+    resolver: zodResolver(formProduct),
     defaultValues: product,
   });
 
@@ -50,7 +50,7 @@ export function CreateProduct({ id, product, update = false }: Props) {
     setOpen(true);
   };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formProduct>) {
     if (update) {
       if (id) {
         await updateProduct(id, values);
