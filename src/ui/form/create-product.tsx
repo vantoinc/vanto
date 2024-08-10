@@ -38,21 +38,17 @@ import {
   SelectValue,
 } from "@/ui/shadcn/select";
 import { CreateCategory } from "./create-category";
+import { useCategory } from "@/lib/hooks";
 
 interface Props {
   id?: number;
   product?: ProductSummary;
   update?: boolean;
-  category: { id: number; name: string }[];
 }
 
-export function CreateProduct({
-  id,
-  product,
-  update = false,
-  category,
-}: Props) {
+export function CreateProduct({ id, product, update = false }: Props) {
   const [open, setOpen] = useState<boolean>(false);
+  const { data: category } = useCategory();
 
   const form = useForm<z.infer<typeof formProduct>>({
     resolver: zodResolver(formProduct),
@@ -136,7 +132,10 @@ export function CreateProduct({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={String(field.value)}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />

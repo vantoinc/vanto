@@ -1,5 +1,5 @@
 import { CreateProduct } from "@/ui/form/create-product";
-import { getCategory, getProducts } from "./action";
+import { getProducts } from "./action";
 import {
   Table,
   TableBody,
@@ -15,16 +15,11 @@ import { DelEdit } from "@/ui/common/del-edit";
 import { Product, ProductSummary } from "@/types/product";
 import { PrevNext } from "@/ui/common/prev-next";
 import { formatCurrency } from "@/lib/utils";
+import { CategoryProvider } from "./category-provider";
 
 const ITEMS_PER_PAGE = 10;
 
-async function Products({
-  currentPage,
-  category,
-}: {
-  currentPage: number;
-  category: { id: number; name: string }[];
-}) {
+async function Products({ currentPage }: { currentPage: number }) {
   const { products, total } = await getProducts(currentPage, ITEMS_PER_PAGE);
   const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
   const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
@@ -49,11 +44,7 @@ async function Products({
             <TableCell>{product.Category?.name ?? "No category"}</TableCell>
             <TableCell>{formatCurrency(product.price, "$")}</TableCell>
             <TableCell className="text-right">
-              <DelEdit
-                id={product.id}
-                product={productData(product)}
-                category={category}
-              />
+              <DelEdit id={product.id} product={productData(product)} />
             </TableCell>
           </TableRow>
         ))}
@@ -91,16 +82,15 @@ export default async function DashboardCatalog({
 }: {
   searchParams: { page: number };
 }) {
-  const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <>
+    <CategoryProvider>
       <div className="mb-4 flex items-center">
         <h1 className="text-2xl font-bold">Catalog</h1>
 
         <div className="ml-auto">
-          <CreateProduct category={category} />
+          <CreateProduct />
         </div>
       </div>
 
@@ -115,9 +105,9 @@ export default async function DashboardCatalog({
           </TableRow>
         </TableHeader>
         <Suspense key={currentPage} fallback={<ProductLoader />}>
-          <Products currentPage={currentPage} category={category} />
+          <Products currentPage={currentPage} />
         </Suspense>
       </Table>
-    </>
+    </CategoryProvider>
   );
 }
