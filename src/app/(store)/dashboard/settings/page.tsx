@@ -2,6 +2,7 @@ import { getSettings } from "./data";
 import { FormStore } from "@/ui/form/form-store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
 import { Cards } from "@/ui/common/cards";
+import { FormPayment } from "@/ui/form/form-payment";
 
 export default async function DashboardSettings() {
   const settings = await getSettings();
@@ -36,7 +37,9 @@ export default async function DashboardSettings() {
             <Cards
               title="Payment Methods"
               description="Manage your accepted payment methods"
-            />
+            >
+              <FormPayment data={settings.Payment} />
+            </Cards>
           </TabsContent>
 
           <TabsContent value="shipping">

@@ -9,12 +9,14 @@ async function main() {
         create: [
           {
             name: "Paypal",
+            active: false,
             description: "pay with Paypal",
             api_key: "",
             private_key: "",
           },
           {
             name: "Stripe",
+            active: false,
             description: "pay with Stripe",
             api_key: "",
             private_key: "",

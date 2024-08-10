@@ -35,3 +35,15 @@ export const formStore = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
 });
+
+export const formPayment = z.object({
+  payment: z.array(
+    z.object({
+      name: z.string(),
+      active: z.boolean(),
+      description: z.string().nullable(),
+      api_key: z.string().nullable(),
+      private_key: z.string().nullable(),
+    }),
+  ),
+});
