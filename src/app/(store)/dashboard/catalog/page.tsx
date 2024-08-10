@@ -1,5 +1,5 @@
 import { CreateProduct } from "@/ui/form/create-product";
-import { getProducts } from "./action";
+import { getCategory, getProducts } from "./data";
 import {
   Table,
   TableBody,
@@ -82,10 +82,11 @@ export default async function DashboardCatalog({
 }: {
   searchParams: { page: number };
 }) {
+  const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <CategoryProvider>
+    <CategoryProvider data={category}>
       <div className="mb-4 flex items-center">
         <h1 className="text-2xl font-bold">Catalog</h1>
 

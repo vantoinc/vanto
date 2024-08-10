@@ -1,35 +1,24 @@
 "use client";
 
 import { Category } from "@/types/product";
-import React, { createContext, useEffect, useState } from "react";
-import { getCategory } from "./action";
+import React, { createContext } from "react";
 
 interface ContextType {
   data: Category[];
-  setData: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
 const defaultContextValue: ContextType = {
   data: [],
-  setData: () => {},
 };
 
 export const CategoryContext = createContext<ContextType>(defaultContextValue);
 
-export function CategoryProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<Category[]>([]);
-
-  useEffect(() => {
-    async function loadCategory() {
-      const category = await getCategory();
-      setData(category);
-    }
-
-    loadCategory();
-  }, []);
-
+export function CategoryProvider({
+  children,
+  data,
+}: ContextType & { children: React.ReactNode }) {
   return (
-    <CategoryContext.Provider value={{ data, setData }}>
+    <CategoryContext.Provider value={{ data }}>
       {children}
     </CategoryContext.Provider>
   );

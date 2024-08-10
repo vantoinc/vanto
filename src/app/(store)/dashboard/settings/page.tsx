@@ -1,4 +1,4 @@
-import { getSettings } from "./action";
+import { getSettings } from "./data";
 import { FormStore } from "@/ui/form/form-store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
 import { Cards } from "@/ui/common/cards";
