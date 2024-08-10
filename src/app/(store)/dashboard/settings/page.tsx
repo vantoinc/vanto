@@ -18,7 +18,6 @@ export default async function DashboardSettings() {
           <TabsList>
             <TabsTrigger value="basic">Store Profile</TabsTrigger>
             <TabsTrigger value="payment">Payment Methods</TabsTrigger>
-            <TabsTrigger value="shipping">Shipping</TabsTrigger>
             <TabsTrigger value="taxes">Taxes</TabsTrigger>
           </TabsList>
           <TabsContent value="basic">
@@ -40,13 +39,6 @@ export default async function DashboardSettings() {
             >
               <FormPayment data={settings.Payment} />
             </Cards>
-          </TabsContent>
-
-          <TabsContent value="shipping">
-            <Cards
-              title="Shipping"
-              description="Configure your shipping options"
-            />
           </TabsContent>
 
           <TabsContent value="taxes">
