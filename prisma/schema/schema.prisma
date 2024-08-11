@@ -19,7 +19,6 @@ model Setting {
   name        String
   description String
   Payment     Payment[]
-  Shipping    Shipping[]
   Taxe        Texe[]
 
   @@map("setting")
@@ -37,18 +36,6 @@ model Payment {
   setting_id   Int
 
   @@map("payment")
-}
-
-model Shipping {
-  id         Int     @id @default(autoincrement())
-  name       String
-  zone       String
-  country    String
-  cost       Float
-  Setting    Setting @relation(fields: [setting_id], references: [id])
-  setting_id Int
-
-  @@map("shipping")
 }
 
 model Texe {
