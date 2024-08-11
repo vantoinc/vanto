@@ -1,19 +1,15 @@
-"use client";
-
 import { Button } from "@/ui/shadcn/button";
-import { signIn } from "next-auth/react";
+import { signIn } from "@/lib/auth";
 
 export function GoogleProvider() {
   return (
-    <Button
-      onClick={async () => {
-        await signIn("google", {
-          callbackUrl: "/dashboard",
-          redirect: false,
-        });
+    <form
+      action={async () => {
+        "use server";
+        await signIn("google", { redirectTo: "/admin" });
       }}
     >
-      Sign in with Google
-    </Button>
+      <Button>Sign in with Google</Button>
+    </form>
   );
 }
