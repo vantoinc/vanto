@@ -60,7 +60,7 @@ export function FormStore({
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Store name</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Textarea {...field} />
                 </FormControl>
