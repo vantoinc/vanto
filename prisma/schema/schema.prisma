@@ -16,9 +16,9 @@ datasource db {
 
 model Store {
   id          Int        @id @default(autoincrement())
-  name        String
+  name        String     @unique
   description String
-  token       String     @default(uuid())
+  token       String     @unique
   userId      String     @map("user_id")
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
@@ -33,7 +33,7 @@ model Store {
 
 model Payment {
   id          Int      @id @default(autoincrement())
-  name        String   @unique
+  name        String
   active      Boolean
   description String?
   apiKey      String?  @map("api_key")
@@ -44,6 +44,7 @@ model Payment {
   updatedAt   DateTime @updatedAt @map("updated_at")
   Store       Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
+  @@unique([name, storeId])
   @@map("payment")
 }
 

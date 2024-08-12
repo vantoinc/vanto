@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { generateToken } from "@/lib/utils";
 import { formStore } from "@/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -15,6 +16,7 @@ export async function createStore(
   await prisma.store.create({
     data: {
       userId: session.user.id,
+      token: generateToken(9),
       ...data,
       Payment: {
         create: [

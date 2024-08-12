@@ -15,3 +15,14 @@ export function formatCurrency(amount: number, currency: string = "$"): string {
   const result = `${formattedIntegerPart},${decimalPart}`;
   return `${result}${currency}`;
 }
+
+export function generateToken(length: number = 9): string {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let token = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    token += characters[randomIndex];
+  }
+  return token;
+}
