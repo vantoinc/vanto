@@ -14,36 +14,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Setting {
+model Store {
   id          Int        @id @default(autoincrement())
   name        String
   description String
+  token       String     @default(uuid())
+  userId      String     @map("user_id")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
   Payment     Payment[]
-  Taxe        Texe[]
+  Taxe        Taxe[]
+  Product     Product[]
+  Category    Category[]
+  User        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("setting")
+  @@map("store")
 }
 
 model Payment {
-  id           Int     @id @default(autoincrement())
-  name         String  @unique
-  active       Boolean
-  description  String?
-  api_key      String?
-  private_key  String?
-  url_callback String?
-  Setting      Setting @relation(fields: [setting_id], references: [id])
-  setting_id   Int
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  active      Boolean
+  description String?
+  apiKey      String?  @map("api_key")
+  privateKey  String?  @map("private_key")
+  urlCallback String?  @map("url_callback")
+  storeId     Int      @map("store_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  Store       Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("payment")
 }
 
-model Texe {
-  id         Int     @id @default(autoincrement())
-  country    String
-  rate       Int
-  Setting    Setting @relation(fields: [setting_id], references: [id])
-  setting_id Int
+model Taxe {
+  id        Int      @id @default(autoincrement())
+  country   String
+  rate      Int
+  storeId   Int      @map("store_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  Store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("taxe")
 }

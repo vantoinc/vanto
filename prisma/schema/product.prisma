@@ -1,15 +1,18 @@
 model Product {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String?
-  image_url   String?
-  sku         String    @unique
+  imageUrl    String?  @map("image_url")
+  sku         String   @unique
   price       Float
-  categoryId  Int?
-  variants    Variant[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  Category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  Int?     @map("category_id")
+  storeId     Int      @map("store_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  Variant  Variant[]
+  Category Category? @relation(fields: [categoryId], references: [id])
+  Store    Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@index([sku])
   @@index([name])
@@ -18,18 +21,24 @@ model Product {
 }
 
 model Variant {
-  id         Int     @id @default(autoincrement())
-  name       String
-  quantity   Int
-  price      Float
-  product_id Int
-  Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  name      String
+  quantity  Int
+  price     Float
+  productId Int     @map("product_id")
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("variant")
 }
 
 model Category {
-  id      Int       @id @default(autoincrement())
-  name    String    @unique
-  Product Product[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  storeId   Int       @map("store_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  Product   Product[]
+  Store     Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([name, storeId])
 }
