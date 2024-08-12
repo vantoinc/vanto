@@ -17,10 +17,10 @@ import { createCategory } from "@/app/(store)/dashboard/catalog/action";
 
 type Category = { name: string };
 
-export function CreateCategory() {
+export function CreateCategory(): JSX.Element {
   const form = useForm<Category>();
 
-  async function onSubmit(values: Category) {
+  async function onSubmit(values: Category): Promise<void> {
     await createCategory(values);
   }
 

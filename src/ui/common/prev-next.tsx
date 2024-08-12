@@ -10,19 +10,19 @@ export function PrevNext({
 }: {
   page: number;
   totalPages: number;
-}) {
+}): JSX.Element {
   const router = useRouter();
 
   const hasPrevious = page > 1;
   const hasNext = page < totalPages;
 
-  function prevPage() {
+  function prevPage(): void {
     if (hasPrevious) {
       router.back();
     }
   }
 
-  function nextPage() {
+  function nextPage(): void {
     if (hasNext) {
       router.push(`/dashboard/catalog?page=${page + 1}`);
     }

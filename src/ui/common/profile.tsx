@@ -3,8 +3,9 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
-export function Profile() {
+export function Profile(): JSX.Element {
   const session = useSession();
+
   return (
     <div className="mt-auto flex items-center gap-3 border-t pt-2">
       <Image

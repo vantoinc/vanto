@@ -14,7 +14,7 @@ interface Props {
   product: ProductSummary;
 }
 
-export function DelEdit({ id, product }: Props) {
+export function DelEdit({ id, product }: Props): JSX.Element {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

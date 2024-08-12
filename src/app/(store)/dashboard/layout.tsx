@@ -15,7 +15,7 @@ export default function LayoutDashboard({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <>
       <div className="grid min-h-screen w-full grid-cols-[240px_1fr]">

@@ -14,7 +14,7 @@ export function Cards({
   title: string;
   description: string;
   children?: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <Card>
       <CardHeader>

@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
 import { Cards } from "@/ui/common/cards";
 import { FormPayment } from "@/ui/form/form-payment";
 
-export default async function DashboardSettings() {
+export default async function DashboardSettings(): Promise<JSX.Element | void> {
   const settings = await getSettings();
   if (!settings) {
     return;
@@ -28,6 +28,7 @@ export default async function DashboardSettings() {
               <FormStore
                 name={settings.name}
                 description={settings.description}
+                update
               />
             </Cards>
           </TabsContent>

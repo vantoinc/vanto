@@ -21,10 +21,12 @@ import { Loader } from "lucide-react";
 export function FormStore({
   name,
   description,
+  update = false,
 }: {
-  name: string;
-  description: string;
-}) {
+  name?: string;
+  description?: string;
+  update?: boolean;
+}): JSX.Element {
   const form = useForm<z.infer<typeof formStore>>({
     resolver: zodResolver(formStore),
     defaultValues: {
@@ -33,8 +35,11 @@ export function FormStore({
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formStore>) {
-    await updateStoreProfile(values);
+  async function onSubmit(values: z.infer<typeof formStore>): Promise<void> {
+    if (update) {
+      await updateStoreProfile(values);
+      return;
+    }
   }
 
   return (
@@ -73,7 +78,7 @@ export function FormStore({
             {form.formState.isSubmitting && (
               <Loader size={14} className="mr-1 animate-spin" />
             )}
-            Save
+            {update ? "Save" : "Create"}
           </Button>
         </form>
       </Form>

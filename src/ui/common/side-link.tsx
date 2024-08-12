@@ -9,7 +9,7 @@ interface Props {
   Icon: LucideIcon;
 }
 
-export function SideLink({ path, title, Icon }: Props) {
+export function SideLink({ path, title, Icon }: Props): JSX.Element {
   const pathname = usePathname();
   return (
     <Link

@@ -6,7 +6,7 @@ import { Input } from "@/ui/shadcn/input";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-export function AddVariant() {
+export function AddVariant(): JSX.Element {
   const form = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control: form.control,

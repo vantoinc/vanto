@@ -19,12 +19,14 @@ interface Props {
   id?: number;
 }
 
-export function RemoveItem({ id }: Props) {
+export function RemoveItem({ id }: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
 
   const [isPending, startTransition] = useTransition();
 
-  const handleRemove = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRemove = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault();
     if (!id) {
       return;

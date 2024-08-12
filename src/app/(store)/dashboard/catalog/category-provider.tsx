@@ -16,7 +16,7 @@ export const CategoryContext = createContext<ContextType>(defaultContextValue);
 export function CategoryProvider({
   children,
   data,
-}: ContextType & { children: React.ReactNode }) {
+}: ContextType & { children: React.ReactNode }): JSX.Element {
   return (
     <CategoryContext.Provider value={{ data }}>
       {children}

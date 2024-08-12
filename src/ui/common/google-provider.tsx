@@ -1,7 +1,7 @@
 import { Button } from "@/ui/shadcn/button";
 import { signIn } from "@/lib/auth";
 
-export function GoogleProvider() {
+export function GoogleProvider(): JSX.Element {
   return (
     <form
       action={async () => {

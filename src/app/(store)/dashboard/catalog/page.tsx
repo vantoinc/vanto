@@ -19,7 +19,11 @@ import { CategoryProvider } from "./category-provider";
 
 const ITEMS_PER_PAGE = 10;
 
-async function Products({ currentPage }: { currentPage: number }) {
+async function Products({
+  currentPage,
+}: {
+  currentPage: number;
+}): Promise<JSX.Element> {
   const { products, total } = await getProducts(currentPage, ITEMS_PER_PAGE);
   const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
   const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
@@ -31,7 +35,7 @@ async function Products({ currentPage }: { currentPage: number }) {
     price: product.price,
     description: product.description ?? undefined,
     categoryId: product.categoryId,
-    variants: product.variants,
+    Variant: product.Variant,
   });
 
   return (
@@ -65,7 +69,7 @@ async function Products({ currentPage }: { currentPage: number }) {
   );
 }
 
-function ProductLoader() {
+function ProductLoader(): JSX.Element[] {
   return Array.from({ length: 5 }).map((_, index) => (
     <TableRow key={index}>
       {Array.from({ length: 5 }).map((_, index) => (
@@ -81,7 +85,7 @@ export default async function DashboardCatalog({
   searchParams,
 }: {
   searchParams: { page: number };
-}) {
+}): Promise<JSX.Element> {
   const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 

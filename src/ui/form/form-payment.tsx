@@ -24,16 +24,21 @@ interface Props {
   data: Payment[];
 }
 
-export function FormPayment({ data }: Props) {
-  const paymentValues = () => {
+export function FormPayment({ data }: Props): JSX.Element {
+  const paymentValues = (): {
+    payment: Pick<
+      Payment,
+      "active" | "name" | "description" | "apiKey" | "privateKey"
+    >[];
+  } => {
     return {
       payment: data.map(
-        ({ active, name, description, api_key, private_key }) => ({
+        ({ active, name, description, apiKey, privateKey }) => ({
           active,
           name,
           description,
-          api_key,
-          private_key,
+          apiKey,
+          privateKey,
         }),
       ),
     };
@@ -49,7 +54,7 @@ export function FormPayment({ data }: Props) {
     name: "payment",
   });
 
-  async function onSubmit(values: z.infer<typeof formPayment>) {
+  async function onSubmit(values: z.infer<typeof formPayment>): Promise<void> {
     await updatePayment(values);
   }
 

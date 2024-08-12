@@ -46,7 +46,11 @@ interface Props {
   update?: boolean;
 }
 
-export function CreateProduct({ id, product, update = false }: Props) {
+export function CreateProduct({
+  id,
+  product,
+  update = false,
+}: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const { data: category } = useCategory();
 
@@ -55,12 +59,12 @@ export function CreateProduct({ id, product, update = false }: Props) {
     defaultValues: product,
   });
 
-  const handleOpen = () => {
+  const handleOpen = (): void => {
     form.reset();
     setOpen(true);
   };
 
-  async function onSubmit(values: z.infer<typeof formProduct>) {
+  async function onSubmit(values: z.infer<typeof formProduct>): Promise<void> {
     if (update) {
       if (id) {
         await updateProduct(id, values);
