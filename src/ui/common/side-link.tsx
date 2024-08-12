@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -11,6 +13,7 @@ interface Props {
 
 export function SideLink({ path, title, Icon }: Props): JSX.Element {
   const pathname = usePathname();
+
   return (
     <Link
       href={path}

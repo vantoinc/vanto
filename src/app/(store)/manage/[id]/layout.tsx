@@ -1,23 +1,14 @@
-"use client";
-
-import {
-  ChartLine,
-  LayoutDashboardIcon,
-  Package,
-  Settings,
-  ShoppingCart,
-} from "lucide-react";
 import Image from "next/image";
 import { Profile } from "@/ui/common/profile";
-import { SideLink } from "@/ui/common/side-link";
+import { Sidebar } from "@/ui/common/sidebar";
 
-export default function LayoutDashboard({
+export default async function LayoutDashboard({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { id: string };
-}): JSX.Element {
+}): Promise<JSX.Element> {
   return (
     <>
       <div className="grid min-h-screen w-full grid-cols-[240px_1fr]">
@@ -27,35 +18,7 @@ export default function LayoutDashboard({
             Tilby
           </h1>
 
-          <SideLink
-            path={`/manage/${params.id}`}
-            title="Dashboard"
-            Icon={LayoutDashboardIcon}
-          />
-
-          <SideLink
-            path={`/manage/${params.id}/catalog`}
-            title="Catalog"
-            Icon={Package}
-          />
-
-          <SideLink
-            path={`/manage/${params.id}/orders`}
-            title="Orders"
-            Icon={ShoppingCart}
-          />
-
-          <SideLink
-            path={`/manage/${params.id}/analytics`}
-            title="Analytics"
-            Icon={ChartLine}
-          />
-
-          <SideLink
-            path={`/manage/${params.id}/settings`}
-            title="Settings"
-            Icon={Settings}
-          />
+          <Sidebar id={params.id} />
 
           <Profile />
         </div>
