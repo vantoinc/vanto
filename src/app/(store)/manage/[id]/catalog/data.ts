@@ -10,7 +10,7 @@ export async function getProducts(
   const [products, total] = await prisma.$transaction([
     prisma.product.findMany({
       include: {
-        variants: true,
+        Variant: true,
         Category: true,
       },
       orderBy: { id: "desc" },

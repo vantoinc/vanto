@@ -6,12 +6,16 @@ import { formProduct } from "@/types/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export async function createProduct(data: z.infer<typeof formProduct>) {
+export async function createProduct(
+  storeId: number,
+  data: z.infer<typeof formProduct>,
+): Promise<void> {
   const { variants, ...productData } = data;
   await prisma.product.create({
     data: {
+      storeId,
       ...productData,
-      variants: {
+      Variant: {
         create: variants.map((variant) => ({
           name: variant.name,
           quantity: variant.quantity,
@@ -19,7 +23,7 @@ export async function createProduct(data: z.infer<typeof formProduct>) {
         })),
       },
     },
-    include: { variants: true },
+    include: { Variant: true },
   });
   revalidatePath("/dashboard/catalog");
 }
@@ -27,7 +31,7 @@ export async function createProduct(data: z.infer<typeof formProduct>) {
 export async function updateProduct(
   id: number,
   data: z.infer<typeof formProduct>,
-) {
+): Promise<void> {
   const { variants, ...productData } = data;
   await prisma.$transaction(async (tx) => {
     const product = await tx.product.update({
@@ -36,7 +40,7 @@ export async function updateProduct(
     });
 
     await tx.variant.deleteMany({
-      where: { product_id: id },
+      where: { productId: id },
     });
 
     if (variants.length > 0) {
@@ -45,7 +49,7 @@ export async function updateProduct(
           name: variant.name,
           quantity: variant.quantity,
           price: variant.price,
-          product_id: id,
+          productId: id,
         })),
       });
     }
@@ -56,7 +60,7 @@ export async function updateProduct(
   revalidatePath("/dashboard/catalog");
 }
 
-export async function removeProduct(id: number) {
+export async function removeProduct(id: number): Promise<void> {
   await prisma.product.delete({ where: { id } });
 
   revalidatePath("/dashboard/catalog");
@@ -64,7 +68,9 @@ export async function removeProduct(id: number) {
 
 // Category
 
-export async function createCategory(data: Pick<Category, "name">) {
+export async function createCategory(
+  data: Pick<Category, "name" | "storeId">,
+): Promise<void> {
   await prisma.category.create({ data });
   revalidatePath("/dashboard/catalog");
 }

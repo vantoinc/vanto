@@ -24,7 +24,7 @@ import {
 import {
   createProduct,
   updateProduct,
-} from "@/app/(store)/dashboard/catalog/action";
+} from "@/app/(store)/manage/[id]/catalog/action";
 import { formProduct } from "@/types/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";

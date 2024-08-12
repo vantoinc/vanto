@@ -1,11 +1,11 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number, currency: string = "$") {
+export function formatCurrency(amount: number, currency: string = "$"): string {
   const formattedNumber = amount.toFixed(2);
   const [integerPart, decimalPart] = formattedNumber.split(".");
   const formattedIntegerPart = integerPart.replace(

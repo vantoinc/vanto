@@ -5,8 +5,8 @@ import { Cards } from "@/ui/common/cards";
 import { FormPayment } from "@/ui/form/form-payment";
 
 export default async function DashboardSettings(): Promise<JSX.Element | void> {
-  const settings = await getSettings();
-  if (!settings) {
+  const store = await getSettings();
+  if (!store) {
     return;
   }
 
@@ -26,8 +26,8 @@ export default async function DashboardSettings(): Promise<JSX.Element | void> {
               description="Manage your store basic information."
             >
               <FormStore
-                name={settings.name}
-                description={settings.description}
+                name={store.name}
+                description={store.description}
                 update
               />
             </Cards>
@@ -38,7 +38,7 @@ export default async function DashboardSettings(): Promise<JSX.Element | void> {
               title="Payment Methods"
               description="Manage your accepted payment methods"
             >
-              <FormPayment data={settings.Payment} />
+              <FormPayment data={store.Payment} />
             </Cards>
           </TabsContent>
 

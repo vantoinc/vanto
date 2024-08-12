@@ -13,8 +13,10 @@ import { SideLink } from "@/ui/common/side-link";
 
 export default function LayoutDashboard({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { id: string };
 }): JSX.Element {
   return (
     <>
@@ -26,27 +28,31 @@ export default function LayoutDashboard({
           </h1>
 
           <SideLink
-            path="/dashboard"
+            path={`/manage/${params.id}`}
             title="Dashboard"
             Icon={LayoutDashboardIcon}
           />
 
-          <SideLink path="/dashboard/catalog" title="Catalog" Icon={Package} />
+          <SideLink
+            path={`/manage/${params.id}/catalog`}
+            title="Catalog"
+            Icon={Package}
+          />
 
           <SideLink
-            path="/dashboard/orders"
+            path={`/manage/${params.id}/orders`}
             title="Orders"
             Icon={ShoppingCart}
           />
 
           <SideLink
-            path="/dashboard/analytics"
+            path={`/manage/${params.id}/analytics`}
             title="Analytics"
             Icon={ChartLine}
           />
 
           <SideLink
-            path="/dashboard/settings"
+            path={`/manage/${params.id}/settings`}
             title="Settings"
             Icon={Settings}
           />

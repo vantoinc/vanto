@@ -15,8 +15,9 @@ import {
 import { Input } from "@/ui/shadcn/input";
 import { Textarea } from "@/ui/shadcn/textarea";
 import { Button } from "../shadcn/button";
-import { updateStoreProfile } from "@/app/(store)/dashboard/settings/action";
+import { updateStoreProfile } from "@/app/(store)/manage/[id]/settings/action";
 import { Loader } from "lucide-react";
+import { createStore } from "@/app/(store)/admin/action";
 
 export function FormStore({
   name,
@@ -40,6 +41,7 @@ export function FormStore({
       await updateStoreProfile(values);
       return;
     }
+    await createStore(values);
   }
 
   return (

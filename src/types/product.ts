@@ -1,25 +1,30 @@
-export type Product = {
-  id: number;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  sku: string;
-  price: number;
-  categoryId: number | null;
-  variants: Variant[];
-  Category: Category | null;
+export type Dates = {
   createdAt: Date;
   updatedAt: Date;
 };
 
+export type Product = {
+  id: number;
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
+  sku: string;
+  price: number;
+  categoryId: number | null;
+  storeId: number;
+  Category: Category | null;
+  Variant: Variant[];
+} & Dates;
+
 export type Category = {
   id: number;
   name: string;
-};
+  storeId: number;
+} & Dates;
 
 export type ProductSummary = Pick<
   Product,
-  "name" | "sku" | "price" | "categoryId" | "variants"
+  "name" | "sku" | "price" | "categoryId" | "Variant"
 > & {
   description?: string;
 };
@@ -29,5 +34,5 @@ type Variant = {
   name: string;
   quantity: number;
   price: number;
-  product_id: number;
+  productId: number;
 };
