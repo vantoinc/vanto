@@ -1,17 +1,19 @@
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import { Store } from "@/types/store";
 import "server-only";
 
-export async function getStore(): Promise<Omit<
-  Store,
-  "Payment" | "Taxe" | "Product" | "Category"
-> | null> {
-  const session = await auth();
+import { withAdmin } from "@/lib/admin";
+import { prisma } from "@/lib/prisma";
+import { Store } from "@/types/store";
 
-  return await prisma.store.findFirst({
-    where: {
-      userId: session?.user.id,
-    },
+type GetStore = Pick<
+  Store,
+  "id" | "name" | "description" | "token" | "userId" | "createdAt" | "updatedAt"
+> | null;
+
+export const getStore = (): Promise<GetStore> =>
+  withAdmin(async (userId) => {
+    return await prisma.store.findFirst({
+      where: {
+        userId,
+      },
+    });
   });
-}
