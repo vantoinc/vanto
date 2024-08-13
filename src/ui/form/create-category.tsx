@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/ui/shadcn/form";
 import { Input } from "@/ui/shadcn/input";
-import { createCategory } from "@/app/(store)/manage/[id]/catalog/action";
+import { createCategory } from "@/app/(store)/manage/catalog/action";
 
 type Category = { name: string };
 

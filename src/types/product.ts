@@ -11,7 +11,7 @@ export type Product = {
   sku: string;
   price: number;
   categoryId: number | null;
-  storeId: number;
+  userId: string;
   Category: Category | null;
   Variant: Variant[];
 } & Dates;
@@ -19,7 +19,7 @@ export type Product = {
 export type Category = {
   id: number;
   name: string;
-  storeId: number;
+  userId: string;
 } & Dates;
 
 export type ProductSummary = Pick<
@@ -36,3 +36,21 @@ type Variant = {
   price: number;
   productId: number;
 };
+
+export type Payment = {
+  id: number;
+  name: string;
+  active: boolean;
+  description: string | null;
+  apiKey: string | null;
+  privateKey: string | null;
+  urlCallback: string | null;
+  storeId: number;
+} & Dates;
+
+export type Taxe = {
+  id: number;
+  country: string;
+  rate: number;
+  storeId: number;
+} & Dates;

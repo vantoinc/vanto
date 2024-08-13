@@ -14,23 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Store {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique
-  description String
-  token       String     @unique
-  userId      String     @map("user_id")
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @updatedAt @map("updated_at")
-  Payment     Payment[]
-  Taxe        Taxe[]
-  Product     Product[]
-  Category    Category[]
-  User        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("store")
-}
-
 model Payment {
   id          Int      @id @default(autoincrement())
   name        String
@@ -39,12 +22,12 @@ model Payment {
   apiKey      String?  @map("api_key")
   privateKey  String?  @map("private_key")
   urlCallback String?  @map("url_callback")
-  storeId     Int      @map("store_id")
+  userId      String   @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  Store       Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([name, storeId])
+  @@unique([name, userId])
   @@map("payment")
 }
 
@@ -52,10 +35,10 @@ model Taxe {
   id        Int      @id @default(autoincrement())
   country   String
   rate      Int
-  storeId   Int      @map("store_id")
+  userId    String   @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  Store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("taxe")
 }

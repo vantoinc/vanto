@@ -1,6 +1,6 @@
 "use client";
 
-import { removeProduct } from "@/app/(store)/manage/[id]/catalog/action";
+import { removeProduct } from "@/app/(store)/manage/catalog/action";
 import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,

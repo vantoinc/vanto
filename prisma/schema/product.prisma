@@ -6,13 +6,13 @@ model Product {
   sku         String   @unique
   price       Float
   categoryId  Int?     @map("category_id")
-  storeId     Int      @map("store_id")
+  userId      String   @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   Variant  Variant[]
   Category Category? @relation(fields: [categoryId], references: [id])
-  Store    Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  User     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([sku])
   @@index([name])
@@ -34,11 +34,12 @@ model Variant {
 model Category {
   id        Int       @id @default(autoincrement())
   name      String
-  storeId   Int       @map("store_id")
+  userId    String    @map("user_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   Product   Product[]
-  Store     Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([name, storeId])
+  @@unique([name, userId])
+  @@map("category")
 }

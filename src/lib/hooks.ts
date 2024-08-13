@@ -1,4 +1,4 @@
-import { CategoryContext } from "@/app/(store)/manage/[id]/catalog/category-provider";
+import { CategoryContext } from "@/app/(store)/manage/catalog/category-provider";
 import { ContextType, useContext } from "react";
 
 export function useCategory(): ContextType<typeof CategoryContext> {

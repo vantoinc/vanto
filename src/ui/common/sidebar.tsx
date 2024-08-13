@@ -9,34 +9,18 @@ import {
 } from "lucide-react";
 import { SideLink } from "@/ui/common/side-link";
 
-export function Sidebar({ id }: { id: string }): JSX.Element {
+export function Sidebar(): JSX.Element {
   return (
     <>
-      <SideLink
-        path={`/manage/${id}`}
-        title="Dashboard"
-        Icon={LayoutDashboardIcon}
-      />
+      <SideLink path={"/manage"} title="Dashboard" Icon={LayoutDashboardIcon} />
 
-      <SideLink path={`/manage/${id}/catalog`} title="Catalog" Icon={Package} />
+      <SideLink path={"/manage/catalog"} title="Catalog" Icon={Package} />
 
-      <SideLink
-        path={`/manage/${id}/orders`}
-        title="Orders"
-        Icon={ShoppingCart}
-      />
+      <SideLink path={"/manage/orders"} title="Orders" Icon={ShoppingCart} />
 
-      <SideLink
-        path={`/manage/${id}/analytics`}
-        title="Analytics"
-        Icon={ChartLine}
-      />
+      <SideLink path={"/manage/analytics"} title="Analytics" Icon={ChartLine} />
 
-      <SideLink
-        path={`/manage/${id}/settings`}
-        title="Settings"
-        Icon={Settings}
-      />
+      <SideLink path={"/manage/settings"} title="Settings" Icon={Settings} />
     </>
   );
 }

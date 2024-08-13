@@ -4,10 +4,8 @@ import { Sidebar } from "@/ui/common/sidebar";
 
 export default async function LayoutDashboard({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { id: string };
 }): Promise<JSX.Element> {
   return (
     <>
@@ -18,7 +16,7 @@ export default async function LayoutDashboard({
             Tilby
           </h1>
 
-          <Sidebar id={params.id} />
+          <Sidebar />
 
           <Profile />
         </div>

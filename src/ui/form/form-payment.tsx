@@ -1,6 +1,5 @@
 "use client";
 
-import { Payment } from "@/types/store";
 import { formPayment } from "@/types/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -18,7 +17,8 @@ import { Checkbox } from "../shadcn/checkbox";
 import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { Textarea } from "../shadcn/textarea";
-import { updatePayment } from "@/app/(store)/manage/[id]/settings/action";
+import { updatePayment } from "@/app/(store)/manage/settings/action";
+import { Payment } from "@/types/product";
 
 interface Props {
   data: Payment[];

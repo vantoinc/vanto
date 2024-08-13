@@ -1,14 +1,17 @@
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String    @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String     @unique
+  emailVerified DateTime?  @map("email_verified")
   image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
   Account       Account[]
   Session       Session[]
-  Store         Store[]
+  Product       Product[]
+  Category      Category[]
+  Payment       Payment[]
+  Taxe          Taxe[]
 
   @@map("user")
 }
