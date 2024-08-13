@@ -1,5 +1,7 @@
+import type { ContextType } from "react";
+import { useContext } from "react";
+
 import { CategoryContext } from "@/app/(store)/manage/catalog/category-provider";
-import { ContextType, useContext } from "react";
 
 export function useCategory(): ContextType<typeof CategoryContext> {
   const context = useContext(CategoryContext);

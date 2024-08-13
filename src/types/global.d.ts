@@ -1,6 +1,7 @@
-import { z } from "zod";
-import { env } from "./env";
-import { DefaultSession } from "next-auth";
+import type { DefaultSession } from "next-auth";
+import type { z } from "zod";
+
+import type { env } from "./env";
 
 declare module "next" {
   type DynamicParams<T extends string> = {

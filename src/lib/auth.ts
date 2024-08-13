@@ -1,8 +1,10 @@
-import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { Session } from "next-auth";
+import NextAuth from "next-auth";
+import type { JWT } from "next-auth/jwt";
+import Google from "next-auth/providers/google";
+
 import { prisma } from "@/lib/prisma";
-import { JWT } from "next-auth/jwt";
-import NextAuth, { Session } from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],

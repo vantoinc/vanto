@@ -1,11 +1,12 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import type { z } from "zod";
+
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Category } from "@/types/product";
-import { formProduct } from "@/lib/validations";
-import { revalidatePath } from "next/cache";
-import { z } from "zod";
+import type { formProduct } from "@/lib/validations";
+import type { Category } from "@/types/product";
 
 export async function createProduct(
   data: z.infer<typeof formProduct>,

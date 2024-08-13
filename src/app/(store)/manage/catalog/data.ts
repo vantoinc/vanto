@@ -1,7 +1,7 @@
 import "server-only";
 
 import { prisma } from "@/lib/prisma";
-import { Category, Product } from "@/types/product";
+import type { Category, Product } from "@/types/product";
 
 export async function getProducts(
   page: number = 1,
