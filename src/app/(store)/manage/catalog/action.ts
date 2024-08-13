@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Category } from "@/types/product";
-import { formProduct } from "@/types/validations";
+import { formProduct } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
