@@ -16,6 +16,7 @@ import { Product, ProductSummary } from "@/types/product";
 import { PrevNext } from "@/ui/common/prev-next";
 import { formatCurrency } from "@/lib/utils";
 import { CategoryProvider } from "./category-provider";
+import { DynamicParams } from "next";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -85,7 +86,7 @@ export default async function DashboardCatalog({
   searchParams,
 }: {
   searchParams: { page: number };
-}): Promise<JSX.Element> {
+} & DynamicParams<"id">): Promise<JSX.Element> {
   const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 
