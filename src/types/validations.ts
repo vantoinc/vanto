@@ -31,11 +31,6 @@ export const formProduct = z.object({
   ),
 });
 
-export const formStore = z.object({
-  name: z.string().min(1),
-  description: z.string().min(1),
-});
-
 export const formPayment = z.object({
   payment: z.array(
     z.object({
