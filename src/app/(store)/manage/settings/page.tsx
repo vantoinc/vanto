@@ -1,7 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
 import { Cards } from "@/ui/common/cards";
+import { FormPayment } from "@/ui/form/form-payment";
+import { getMethodPayment } from "./data";
 
-export default async function DashboardSettings(): Promise<JSX.Element | void> {
+export default async function DashboardSettings(): Promise<JSX.Element | null> {
+  const methodPayment = await getMethodPayment();
+  if (!methodPayment) return null;
+
   return (
     <>
       <h1 className="text-2xl font-bold">Settings</h1>
@@ -16,7 +21,9 @@ export default async function DashboardSettings(): Promise<JSX.Element | void> {
             <Cards
               title="Payment Methods"
               description="Manage your accepted payment methods"
-            />
+            >
+              <FormPayment data={methodPayment} />
+            </Cards>
           </TabsContent>
 
           <TabsContent value="taxes">

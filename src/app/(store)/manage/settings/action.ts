@@ -1,28 +1,33 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { formPayment } from "@/types/validations";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
+import type { z } from "zod";
 
-export async function updatePayment(
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import type { formPayment } from "@/lib/validations";
+
+export async function addPayment(
   data: z.infer<typeof formPayment>,
-): Promise<void> {
-  const { payment } = data;
+): Promise<void | null> {
+  const session = await auth();
+  if (!session) return null;
 
-  await prisma.$transaction(
-    payment.map((p) =>
-      prisma.payment.update({
-        where: { name: p.name },
-        data: {
-          active: p.active,
-          description: p.description,
-          apiKey: p.api_key,
-          privateKey: p.private_key,
-        },
-      }),
-    ),
-  );
+  await prisma.payment.upsert({
+    create: {
+      name: "Stripe",
+      active: true,
+      userId: session.user.id,
+      ...data,
+    },
+    update: data,
+    where: {
+      name_userId: {
+        name: "Stripe",
+        userId: session.user.id,
+      },
+    },
+  });
 
-  revalidatePath("/dashboard/settings");
+  revalidatePath("/manage/settings");
 }

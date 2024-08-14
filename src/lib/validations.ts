@@ -32,9 +32,7 @@ export const formProduct = z.object({
 });
 
 export const formPayment = z.object({
-  name: z.enum(["Stripe", "Paypal"]),
-  description: z.string().optional(),
-  apiKey: z.string().optional(),
-  privateKey: z.string().optional(),
-  urlCallback: z.string().optional(),
+  apiKey: z.string().min(1).nullable(),
+  privateKey: z.string().min(1).nullable(),
+  urlCallback: z.string().nullable(),
 });
