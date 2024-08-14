@@ -25,7 +25,6 @@ export async function TableProducts({
 
   const productData = (product: Product): ProductSummary => ({
     name: product.name,
-    sku: product.sku,
     price: product.price,
     description: product.description ?? undefined,
     Variant: product.Variant,
@@ -36,7 +35,6 @@ export async function TableProducts({
       <TableBody>
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell className="font-medium">{product.sku}</TableCell>
             <TableCell>{product.name}</TableCell>
             <TableCell className="text-right">
               {formatCurrency(product.price, "$")}

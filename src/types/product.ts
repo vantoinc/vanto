@@ -8,16 +8,12 @@ export type Product = {
   name: string;
   description: string | null;
   imageUrl: string | null;
-  sku: string;
   price: number;
   userId: string;
   Variant: Variant[];
 } & Dates;
 
-export type ProductSummary = Pick<
-  Product,
-  "name" | "sku" | "price" | "Variant"
-> & {
+export type ProductSummary = Pick<Product, "name" | "price" | "Variant"> & {
   description?: string;
 };
 

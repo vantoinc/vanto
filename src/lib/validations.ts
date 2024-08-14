@@ -19,7 +19,6 @@ const typeNumber = z.union([
 export const formProduct = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
-  sku: z.string().min(1),
   price: typePrice,
   Variant: z.array(
     z.object({

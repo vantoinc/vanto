@@ -3,7 +3,6 @@ model Product {
   name        String
   description String?
   imageUrl    String?  @map("image_url")
-  sku         String   @unique
   price       Float
   userId      String   @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
@@ -12,7 +11,6 @@ model Product {
   Variant Variant[]
   User    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([sku])
   @@index([name])
   @@map("catalog")
 }

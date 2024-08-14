@@ -23,7 +23,6 @@ export default async function Catalog({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">SKU</TableHead>
             <TableHead>Product</TableHead>
             <TableHead className="text-right">Price</TableHead>
             <TableHead></TableHead>

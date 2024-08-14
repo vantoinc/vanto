@@ -129,20 +129,6 @@ export function CreateProduct({
             <div className="grid grid-cols-2 gap-2">
               <FormField
                 control={form.control}
-                name="sku"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>SKU</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
