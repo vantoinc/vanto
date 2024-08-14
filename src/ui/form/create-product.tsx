@@ -10,13 +10,13 @@ import {
   DialogTrigger,
 } from "@/ui/shadcn/dialog";
 import { Input } from "@/ui/shadcn/input";
-import { Textarea } from "@/ui/shadcn/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -98,8 +98,11 @@ export function CreateProduct({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Product name</FormLabel>
+                  <FormDescription className="text-xs">
+                    Give your product a short and clear name.
+                  </FormDescription>
                   <FormControl>
-                    <Input placeholder="product name" {...field} />
+                    <Input className="mt-2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,9 +114,12 @@ export function CreateProduct({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Description (optional)</FormLabel>
+                  <FormDescription className="text-xs">
+                    Give your product a short and clear description.
+                  </FormDescription>
                   <FormControl>
-                    <Textarea placeholder="product description..." {...field} />
+                    <Input className="mt-2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,7 +134,7 @@ export function CreateProduct({
                   <FormItem>
                     <FormLabel>SKU</FormLabel>
                     <FormControl>
-                      <Input placeholder="SKU" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +148,7 @@ export function CreateProduct({
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="0" {...field} />
+                      <Input type="number" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
