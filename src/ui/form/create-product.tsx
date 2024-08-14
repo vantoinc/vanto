@@ -3,6 +3,7 @@
 import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -151,12 +152,20 @@ export function CreateProduct({
 
             <AddVariant />
 
-            <Button>
-              {form.formState.isSubmitting && (
-                <Loader size={14} className="mr-1 animate-spin" />
-              )}
-              {update ? "Update" : "Create"}
-            </Button>
+            <div className="flex items-center gap-2">
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+
+              <Button>
+                {form.formState.isSubmitting && (
+                  <Loader size={14} className="mr-1 animate-spin" />
+                )}
+                {update ? "Update" : "Create"}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
