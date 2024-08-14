@@ -23,13 +23,13 @@ interface Props {
     apiKey: string | null;
     privateKey: string | null;
     urlCallback: string | null;
-  };
+  } | null;
 }
 
 export function FormPayment({ data }: Props): JSX.Element {
   const form = useForm<z.infer<typeof formPayment>>({
     resolver: zodResolver(formPayment),
-    defaultValues: data,
+    defaultValues: data || { apiKey: "", privateKey: "", urlCallback: "" },
   });
 
   async function onSubmit(values: z.infer<typeof formPayment>): Promise<void> {
