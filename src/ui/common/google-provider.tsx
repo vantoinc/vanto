@@ -1,4 +1,4 @@
-import { signInGoogle } from "@/app/(store)/action";
+import { signInGoogle } from "@/app/(public)/action";
 import { Button } from "@/ui/shadcn/button";
 
 export function GoogleProvider(): JSX.Element {
