@@ -81,7 +81,7 @@ function ProductLoader(): JSX.Element[] {
   ));
 }
 
-export default async function DashboardCatalog({
+export default async function Catalog({
   searchParams,
 }: {
   searchParams: { page: number };

@@ -30,7 +30,7 @@ export async function createProduct(
     },
     include: { Variant: true },
   });
-  revalidatePath("/dashboard/catalog");
+  revalidatePath("/manage/catalog");
 }
 
 export async function updateProduct(
@@ -62,13 +62,13 @@ export async function updateProduct(
     return product;
   });
 
-  revalidatePath("/dashboard/catalog");
+  revalidatePath("/manage/catalog");
 }
 
 export async function removeProduct(id: number): Promise<void> {
   await prisma.product.delete({ where: { id } });
 
-  revalidatePath("/dashboard/catalog");
+  revalidatePath("/manage/catalog");
 }
 
 // Category
@@ -81,5 +81,5 @@ export async function createCategory(
   const userId = session.user.id;
 
   await prisma.category.create({ data: { userId, ...data } });
-  revalidatePath("/dashboard/catalog");
+  revalidatePath("/manage/catalog");
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Profile } from "@/ui/common/profile";
 import { Sidebar } from "@/ui/common/sidebar";
 
-export default async function LayoutDashboard({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;

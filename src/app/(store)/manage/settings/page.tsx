@@ -3,7 +3,7 @@ import { Cards } from "@/ui/common/cards";
 import { FormPayment } from "@/ui/form/form-payment";
 import { getMethodPayment } from "./data";
 
-export default async function DashboardSettings(): Promise<JSX.Element | null> {
+export default async function Settings(): Promise<JSX.Element | null> {
   const methodPayment = await getMethodPayment();
   if (!methodPayment) return null;
 
