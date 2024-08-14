@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/ui/shadcn/button";
-import { AlertCircle, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -46,6 +47,9 @@ export function FormPayment({ data }: Props): JSX.Element {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Webhook (optional)</FormLabel>
+              <FormDescription>
+                URL to receive payment event notifications.
+              </FormDescription>
               <FormControl>
                 <Input {...field} value={field.value || ""} />
               </FormControl>
@@ -61,6 +65,9 @@ export function FormPayment({ data }: Props): JSX.Element {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Api Key</FormLabel>
+                <FormDescription>
+                  Enter your production API key.
+                </FormDescription>
                 <FormControl>
                   <Input {...field} value={field.value || ""} />
                 </FormControl>
@@ -75,6 +82,9 @@ export function FormPayment({ data }: Props): JSX.Element {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Private Key</FormLabel>
+                <FormDescription>
+                  Enter your production private key.
+                </FormDescription>
                 <FormControl>
                   <Input {...field} value={field.value || ""} />
                 </FormControl>
@@ -83,10 +93,6 @@ export function FormPayment({ data }: Props): JSX.Element {
             )}
           />
         </div>
-
-        <p className="text-muted-foreground flex items-center gap-2">
-          <AlertCircle size={16} /> Enter your production credentials again.
-        </p>
 
         <Button>
           {form.formState.isSubmitting && (
