@@ -20,6 +20,7 @@ export const formProduct = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   price: typePrice,
+  billing: z.enum(["one", "subs"]),
   Variant: z.array(
     z.object({
       name: z.string().min(1),

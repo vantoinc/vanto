@@ -31,6 +31,7 @@ import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/types/product";
 import { AddVariant } from "@/ui/common/add-variant";
+import { RadioGroup, RadioGroupItem } from "../shadcn/radio-group";
 
 interface Props {
   id?: number;
@@ -126,7 +127,7 @@ export function CreateProduct({
               )}
             />
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="price"
@@ -135,6 +136,36 @@ export function CreateProduct({
                     <FormLabel>Price</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="billing"
+                render={({ field }) => (
+                  <FormItem className="mt-5">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormItem className="flex items-center space-x-3">
+                          <FormControl>
+                            <RadioGroupItem value="one" />
+                          </FormControl>
+                          <FormLabel>Single payment</FormLabel>
+                        </FormItem>
+
+                        <FormItem className="flex items-center space-x-3">
+                          <FormControl>
+                            <RadioGroupItem value="subs" />
+                          </FormControl>
+                          <FormLabel>Subscription</FormLabel>
+                        </FormItem>
+                      </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

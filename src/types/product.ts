@@ -10,10 +10,14 @@ export type Product = {
   imageUrl: string | null;
   price: number;
   userId: string;
+  billing: "one" | "subs";
   Variant: Variant[];
 } & Dates;
 
-export type ProductSummary = Pick<Product, "name" | "price" | "Variant"> & {
+export type ProductSummary = Pick<
+  Product,
+  "name" | "price" | "billing" | "Variant"
+> & {
   description?: string;
 };
 

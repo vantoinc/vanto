@@ -27,6 +27,7 @@ export async function TableProducts({
     name: product.name,
     price: product.price,
     description: product.description ?? undefined,
+    billing: product.billing,
     Variant: product.Variant,
   });
 

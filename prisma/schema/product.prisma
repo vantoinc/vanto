@@ -1,18 +1,24 @@
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String?
-  imageUrl    String?  @map("image_url")
+  imageUrl    String?     @map("image_url")
   price       Float
-  userId      String   @map("user_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  billing     BillingType
+  userId      String      @map("user_id")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
 
   Variant Variant[]
   User    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([name])
   @@map("catalog")
+}
+
+enum BillingType {
+  one
+  subs
 }
 
 model Variant {
