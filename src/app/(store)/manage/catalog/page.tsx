@@ -1,5 +1,5 @@
 import { CreateProduct } from "@/ui/form/create-product";
-import { getCategory, getProducts } from "./data";
+import { getProducts } from "./data";
 import {
   Table,
   TableBody,
@@ -15,7 +15,6 @@ import { DelEdit } from "@/ui/common/del-edit";
 import { Product, ProductSummary } from "@/types/product";
 import { PrevNext } from "@/ui/common/prev-next";
 import { formatCurrency } from "@/lib/utils";
-import { CategoryProvider } from "./category-provider";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -34,7 +33,6 @@ async function Products({
     sku: product.sku,
     price: product.price,
     description: product.description ?? undefined,
-    categoryId: product.categoryId,
     Variant: product.Variant,
   });
 
@@ -45,7 +43,6 @@ async function Products({
           <TableRow key={product.id}>
             <TableCell className="font-medium">{product.sku}</TableCell>
             <TableCell>{product.name}</TableCell>
-            <TableCell>{product.Category?.name ?? "No category"}</TableCell>
             <TableCell>{formatCurrency(product.price, "$")}</TableCell>
             <TableCell className="text-right">
               <DelEdit id={product.id} product={productData(product)} />
@@ -86,11 +83,10 @@ export default async function Catalog({
 }: {
   searchParams: { page: number };
 }): Promise<JSX.Element> {
-  const category = await getCategory();
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <CategoryProvider data={category}>
+    <>
       <div className="mb-4 flex items-center">
         <h1 className="text-2xl font-bold">Catalog</h1>
 
@@ -104,7 +100,6 @@ export default async function Catalog({
           <TableRow>
             <TableHead className="w-[100px]">SKU</TableHead>
             <TableHead>Product</TableHead>
-            <TableHead>Category</TableHead>
             <TableHead>Price</TableHead>
             <TableHead></TableHead>
           </TableRow>
@@ -113,6 +108,6 @@ export default async function Catalog({
           <Products currentPage={currentPage} />
         </Suspense>
       </Table>
-    </CategoryProvider>
+    </>
   );
 }

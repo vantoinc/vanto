@@ -10,21 +10,13 @@ export type Product = {
   imageUrl: string | null;
   sku: string;
   price: number;
-  categoryId: number | null;
   userId: string;
-  Category: Category | null;
   Variant: Variant[];
-} & Dates;
-
-export type Category = {
-  id: number;
-  name: string;
-  userId: string;
 } & Dates;
 
 export type ProductSummary = Pick<
   Product,
-  "name" | "sku" | "price" | "categoryId" | "Variant"
+  "name" | "sku" | "price" | "Variant"
 > & {
   description?: string;
 };

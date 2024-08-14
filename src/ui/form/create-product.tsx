@@ -30,15 +30,6 @@ import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { ProductSummary } from "@/types/product";
 import { AddVariant } from "@/ui/common/add-variant";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/ui/shadcn/select";
-import { CreateCategory } from "./create-category";
-import { useCategory } from "@/lib/hooks";
 
 interface Props {
   id?: number;
@@ -52,7 +43,6 @@ export function CreateProduct({
   update = false,
 }: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
-  const { data: category } = useCategory();
 
   const form = useForm<z.infer<typeof formProduct>>({
     resolver: zodResolver(formProduct),
@@ -128,37 +118,6 @@ export function CreateProduct({
                 </FormItem>
               )}
             />
-
-            <div className="flex w-full items-end">
-              <FormField
-                control={form.control}
-                name="categoryId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={String(field.value)}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {category.map((item) => (
-                          <SelectItem key={item.id} value={`${item.id}`}>
-                            {item.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-
-              <CreateCategory />
-            </div>
 
             <div className="grid grid-cols-2 gap-2">
               <FormField

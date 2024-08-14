@@ -5,18 +5,15 @@ model Product {
   imageUrl    String?  @map("image_url")
   sku         String   @unique
   price       Float
-  categoryId  Int?     @map("category_id")
   userId      String   @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  Variant  Variant[]
-  Category Category? @relation(fields: [categoryId], references: [id])
-  User     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Variant Variant[]
+  User    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([sku])
   @@index([name])
-  @@index([categoryId])
   @@map("catalog")
 }
 
@@ -29,17 +26,4 @@ model Variant {
   Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("variant")
-}
-
-model Category {
-  id        Int       @id @default(autoincrement())
-  name      String
-  userId    String    @map("user_id")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  Product   Product[]
-  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([name, userId])
-  @@map("category")
 }

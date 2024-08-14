@@ -9,7 +9,6 @@ model User {
   Account       Account[]
   Session       Session[]
   Product       Product[]
-  Category      Category[]
   Payment       Payment[]
   Taxe          Taxe[]
 

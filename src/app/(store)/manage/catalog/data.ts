@@ -1,7 +1,7 @@
 import "server-only";
 
 import { prisma } from "@/lib/prisma";
-import type { Category, Product } from "@/types/product";
+import type { Product } from "@/types/product";
 
 export async function getProducts(
   page: number = 1,
@@ -11,7 +11,6 @@ export async function getProducts(
     prisma.product.findMany({
       include: {
         Variant: true,
-        Category: true,
       },
       orderBy: { id: "desc" },
       skip: (page - 1) * itemsPerPage,
@@ -21,8 +20,4 @@ export async function getProducts(
   ]);
 
   return { products, total };
-}
-
-export async function getCategory(): Promise<Category[]> {
-  return await prisma.category.findMany();
 }

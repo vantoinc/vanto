@@ -10,7 +10,7 @@ export function AddVariant(): JSX.Element {
   const form = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "variants",
+    name: "Variant",
   });
 
   return (
@@ -30,7 +30,7 @@ export function AddVariant(): JSX.Element {
           <div key={field.id} className="flex items-end gap-2">
             <FormField
               control={form.control}
-              name={`variants.${index}.name`}
+              name={`Variant.${index}.name`}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
@@ -43,7 +43,7 @@ export function AddVariant(): JSX.Element {
 
             <FormField
               control={form.control}
-              name={`variants.${index}.quantity`}
+              name={`Variant.${index}.quantity`}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Quantity</FormLabel>
@@ -56,7 +56,7 @@ export function AddVariant(): JSX.Element {
 
             <FormField
               control={form.control}
-              name={`variants.${index}.price`}
+              name={`Variant.${index}.price`}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Price</FormLabel>

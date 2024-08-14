@@ -6,7 +6,6 @@ import type { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import type { formProduct } from "@/lib/validations";
-import type { Category } from "@/types/product";
 
 export async function createProduct(
   data: z.infer<typeof formProduct>,
@@ -15,13 +14,13 @@ export async function createProduct(
   if (!session) return;
   const userId = session.user.id;
 
-  const { variants, ...productData } = data;
+  const { Variant, ...productData } = data;
   await prisma.product.create({
     data: {
       userId,
       ...productData,
       Variant: {
-        create: variants.map((variant) => ({
+        create: Variant.map((variant) => ({
           name: variant.name,
           quantity: variant.quantity,
           price: variant.price,
@@ -37,7 +36,7 @@ export async function updateProduct(
   id: number,
   data: z.infer<typeof formProduct>,
 ): Promise<void> {
-  const { variants, ...productData } = data;
+  const { Variant, ...productData } = data;
   await prisma.$transaction(async (tx) => {
     const product = await tx.product.update({
       where: { id },
@@ -48,9 +47,9 @@ export async function updateProduct(
       where: { productId: id },
     });
 
-    if (variants.length > 0) {
+    if (Variant.length > 0) {
       await tx.variant.createMany({
-        data: variants.map((variant) => ({
+        data: Variant.map((variant) => ({
           name: variant.name,
           quantity: variant.quantity,
           price: variant.price,
@@ -68,18 +67,5 @@ export async function updateProduct(
 export async function removeProduct(id: number): Promise<void> {
   await prisma.product.delete({ where: { id } });
 
-  revalidatePath("/manage/catalog");
-}
-
-// Category
-
-export async function createCategory(
-  data: Pick<Category, "name">,
-): Promise<void> {
-  const session = await auth();
-  if (!session) return;
-  const userId = session.user.id;
-
-  await prisma.category.create({ data: { userId, ...data } });
   revalidatePath("/manage/catalog");
 }
