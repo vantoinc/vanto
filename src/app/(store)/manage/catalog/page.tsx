@@ -2,6 +2,8 @@ import { CreateProduct } from "@/ui/form/create-product";
 import { Table, TableHead, TableHeader, TableRow } from "@/ui/shadcn/table";
 import { Suspense } from "react";
 import { ProductLoader, TableProducts } from "@/ui/common/table-products";
+import { CatalogProvider } from "./catalog-provider";
+import { RemoveItem } from "@/ui/form/remove-item";
 
 export default async function Catalog({
   searchParams,
@@ -11,7 +13,7 @@ export default async function Catalog({
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <>
+    <CatalogProvider>
       <div className="mb-4 flex items-center">
         <h1 className="text-2xl font-bold">Catalog</h1>
 
@@ -32,6 +34,8 @@ export default async function Catalog({
           <TableProducts currentPage={currentPage} />
         </Suspense>
       </Table>
-    </>
+
+      <RemoveItem />
+    </CatalogProvider>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { removeProduct } from "@/app/(store)/manage/catalog/action";
+import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
 import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,
@@ -9,18 +10,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/ui/shadcn/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Loader } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useContext, useTransition } from "react";
 
-interface Props {
-  id?: number;
-}
-
-export function RemoveItem({ id }: Props): JSX.Element {
-  const [open, setOpen] = useState<boolean>(false);
+export function RemoveItem(): JSX.Element {
+  const { isRemove, setIsRemove, id } = useContext(CatalogContext);
 
   const [isPending, startTransition] = useTransition();
 
@@ -33,17 +29,12 @@ export function RemoveItem({ id }: Props): JSX.Element {
     }
     startTransition(async () => {
       await removeProduct(id);
-      setOpen(false);
+      setIsRemove(false);
     });
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="w-full">
-          Remove
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isRemove} onOpenChange={setIsRemove}>
       <DialogContent className="w-[350px]">
         <DialogHeader>
           <DialogTitle>Do you want to delete product?</DialogTitle>
