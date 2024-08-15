@@ -40,7 +40,7 @@ export async function TableProducts({
             <TableCell className="text-right">
               {formatCurrency(product.price, "$")}
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-right w-[80px]">
               <DelEdit id={product.id} product={productData(product)} />
             </TableCell>
           </TableRow>
