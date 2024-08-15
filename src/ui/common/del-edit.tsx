@@ -16,14 +16,25 @@ interface Props {
   product: ProductSummary;
 }
 
-export function DelEdit({ id }: Props): JSX.Element {
-  const { setId, setIsRemove } = useContext(CatalogContext);
+export function DelEdit({ id, product }: Props): JSX.Element {
+  const { setId, setIsRemove, setIsEdit, setProduct } =
+    useContext(CatalogContext);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Ellipsis size={18} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => {
+            setIsEdit(true);
+            setProduct(product);
+            setId(id);
+          }}
+        >
+          Edit
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             setIsRemove(true);

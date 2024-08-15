@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { ProductLoader, TableProducts } from "@/ui/common/table-products";
 import { CatalogProvider } from "./catalog-provider";
 import { RemoveItem } from "@/ui/form/remove-item";
+import { UpdateProduct } from "@/ui/form/update-product";
 
 export default async function Catalog({
   searchParams,
@@ -36,6 +37,7 @@ export default async function Catalog({
       </Table>
 
       <RemoveItem />
+      <UpdateProduct />
     </CatalogProvider>
   );
 }
