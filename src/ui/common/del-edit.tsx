@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
-import { Ellipsis } from "lucide-react";
+import { Edit2, Ellipsis, Trash2 } from "lucide-react";
 import { ProductSummary } from "@/types/product";
 import { useContext } from "react";
 import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
@@ -33,7 +33,7 @@ export function DelEdit({ id, product }: Props): JSX.Element {
             setId(id);
           }}
         >
-          Edit
+          <Edit2 size={12} className="mr-2" /> Edit
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -41,7 +41,7 @@ export function DelEdit({ id, product }: Props): JSX.Element {
             setId(id);
           }}
         >
-          Remove
+          <Trash2 size={12} className="mr-2" /> Remove
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
