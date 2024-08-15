@@ -22,33 +22,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/ui/shadcn/form";
-import {
-  createProduct,
-  updateProduct,
-} from "@/app/(store)/manage/catalog/action";
+import { createProduct } from "@/app/(store)/manage/catalog/action";
 import { formProduct } from "@/lib/validations";
 import { Loader, PlusCircle } from "lucide-react";
 import { useState } from "react";
-import { ProductSummary } from "@/types/product";
 import { AddVariant } from "@/ui/common/add-variant";
 import { RadioGroup, RadioGroupItem } from "../shadcn/radio-group";
+import { useAction } from "next-safe-action/hooks";
 
-interface Props {
-  id?: number;
-  product?: ProductSummary;
-  update?: boolean;
-}
-
-export function CreateProduct({
-  id,
-  product,
-  update = false,
-}: Props): JSX.Element {
+export function CreateProduct(): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formProduct>>({
     resolver: zodResolver(formProduct),
-    defaultValues: product,
   });
 
   const handleOpen = (): void => {
@@ -56,43 +42,29 @@ export function CreateProduct({
     setOpen(true);
   };
 
-  async function onSubmit(values: z.infer<typeof formProduct>): Promise<void> {
-    if (update) {
-      if (id) {
-        await updateProduct(id, values);
-      }
-    } else {
-      await createProduct(values);
-    }
-    setOpen(false);
-  }
+  const { execute } = useAction(createProduct, {
+    onSuccess: () => {
+      alert("test create");
+      setOpen(false);
+    },
+    onError: () => {
+      alert("Error");
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          size="sm"
-          onClick={handleOpen}
-          variant={update ? "ghost" : "default"}
-          className="w-full"
-        >
-          {update ? (
-            "Edit"
-          ) : (
-            <>
-              <PlusCircle size={16} className="mr-1" /> Add Product
-            </>
-          )}
+        <Button size="sm" onClick={handleOpen} className="w-full">
+          <PlusCircle size={16} className="mr-1" /> Add Product
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[calc(100vh-30px)] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>
-            {update ? "Edit product" : "Create Product"}
-          </DialogTitle>
+          <DialogTitle>Create Product</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          <form onSubmit={form.handleSubmit(execute)} className="space-y-2">
             <FormField
               control={form.control}
               name="name"
@@ -186,7 +158,7 @@ export function CreateProduct({
                 {form.formState.isSubmitting && (
                   <Loader size={14} className="mr-1 animate-spin" />
                 )}
-                {update ? "Update" : "Create"}
+                Create
               </Button>
             </div>
           </form>

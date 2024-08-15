@@ -1,68 +1,74 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import type { z } from "zod";
+import { z } from "zod";
 
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import type { formProduct } from "@/lib/validations";
+import { authActionClient } from "@/lib/safe-action";
+import { formProduct } from "@/lib/validations";
 
-export async function createProduct(
-  data: z.infer<typeof formProduct>,
-): Promise<void> {
-  const session = await auth();
-  if (!session) return;
-  const userId = session.user.id;
-
-  const { Variant, ...productData } = data;
-  await prisma.product.create({
-    data: {
-      userId,
-      ...productData,
-      Variant: {
-        create: Variant.map((variant) => ({
-          name: variant.name,
-          quantity: variant.quantity,
-          price: variant.price,
-        })),
+export const createProduct = authActionClient
+  .schema(formProduct)
+  .metadata({ name: "create-product" })
+  .action(async ({ parsedInput: params, ctx: { userId } }) => {
+    const { Variant, ...productData } = params;
+    await prisma.product.create({
+      data: {
+        userId,
+        ...productData,
+        Variant: {
+          create: Variant.map((variant) => ({
+            name: variant.name,
+            quantity: variant.quantity,
+            price: variant.price,
+          })),
+        },
       },
-    },
-    include: { Variant: true },
+      include: { Variant: true },
+    });
+
+    revalidatePath("/manage/catalog");
   });
-  revalidatePath("/manage/catalog");
-}
 
-export async function updateProduct(
-  id: number,
-  data: z.infer<typeof formProduct>,
-): Promise<void> {
-  const { Variant, ...productData } = data;
-  await prisma.$transaction(async (tx) => {
-    const product = await tx.product.update({
-      where: { id },
-      data: productData,
-    });
+export const updateProduct = authActionClient
+  .schema(formProduct)
+  .metadata({ name: "update-product" })
+  .bindArgsSchemas<[id: z.ZodNumber]>([z.number()])
+  .action(
+    async ({
+      parsedInput: params,
+      bindArgsParsedInputs: [id],
+      ctx: { userId },
+    }) => {
+      const { Variant, ...productData } = params;
 
-    await tx.variant.deleteMany({
-      where: { productId: id },
-    });
+      await prisma.$transaction(async (tx) => {
+        const product = await tx.product.update({
+          where: { id, userId },
+          data: productData,
+        });
 
-    if (Variant.length > 0) {
-      await tx.variant.createMany({
-        data: Variant.map((variant) => ({
-          name: variant.name,
-          quantity: variant.quantity,
-          price: variant.price,
-          productId: id,
-        })),
+        await tx.variant.deleteMany({
+          where: { productId: id },
+        });
+
+        if (Variant.length > 0) {
+          await tx.variant.createMany({
+            data: Variant.map((variant) => ({
+              name: variant.name,
+              quantity: variant.quantity,
+              price: variant.price,
+              productId: id,
+            })),
+          });
+        }
+
+        return product;
       });
-    }
 
-    return product;
-  });
-
-  revalidatePath("/manage/catalog");
-}
+      revalidatePath("/manage/catalog");
+    },
+  );
 
 export async function removeProduct(id: number): Promise<void> {
   await prisma.product.delete({ where: { id } });
