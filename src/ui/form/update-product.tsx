@@ -44,7 +44,7 @@ export function UpdateProduct(): JSX.Element {
     }
   }, [form, product]);
 
-  const { execute } = useAction(updateProduct.bind(null, id), {
+  const { execute, status } = useAction(updateProduct.bind(null, id), {
     onSuccess: () => {
       alert("test update");
       setIsEdit(false);
@@ -147,13 +147,17 @@ export function UpdateProduct(): JSX.Element {
 
             <div className="flex items-center gap-2">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={status === "executing"}
+                >
                   Cancel
                 </Button>
               </DialogClose>
 
-              <Button>
-                {form.formState.isSubmitting && (
+              <Button disabled={status === "executing"}>
+                {status === "executing" && (
                   <Loader size={14} className="mr-1 animate-spin" />
                 )}
                 Update

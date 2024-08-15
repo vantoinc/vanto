@@ -42,7 +42,7 @@ export function CreateProduct(): JSX.Element {
     setOpen(true);
   };
 
-  const { execute } = useAction(createProduct, {
+  const { execute, status } = useAction(createProduct, {
     onSuccess: () => {
       alert("test create");
       setOpen(false);
@@ -64,7 +64,7 @@ export function CreateProduct(): JSX.Element {
           <DialogTitle>Create Product</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(execute)} className="space-y-2">
+          <form onSubmit={form.handleSubmit(execute)} className="space-y-3">
             <FormField
               control={form.control}
               name="name"
@@ -149,13 +149,17 @@ export function CreateProduct(): JSX.Element {
 
             <div className="flex items-center gap-2">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={status === "executing"}
+                >
                   Cancel
                 </Button>
               </DialogClose>
 
-              <Button>
-                {form.formState.isSubmitting && (
+              <Button disabled={status === "executing"}>
+                {status === "executing" && (
                   <Loader size={14} className="mr-1 animate-spin" />
                 )}
                 Create
