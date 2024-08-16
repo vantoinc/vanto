@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/ui/shadcn/table";
 import { Skeleton } from "@/ui/shadcn/skeleton";
+import { Package } from "lucide-react";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -34,6 +35,19 @@ export async function TableProducts({
   return (
     <>
       <TableBody>
+        {products.length < 1 && (
+          <TableRow>
+            <TableCell colSpan={3} className="text-center">
+              <div className="bg-muted inline-block rounded-full p-3">
+                <Package size={44} />
+              </div>
+              <h2 className="text-xl font-bold">No products yet</h2>
+              <p className="text-muted-foreground">
+                there are no products at the moment
+              </p>
+            </TableCell>
+          </TableRow>
+        )}
         {products.map((product) => (
           <TableRow key={product.id}>
             <TableCell>{product.name}</TableCell>
