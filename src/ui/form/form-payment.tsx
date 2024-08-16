@@ -18,6 +18,8 @@ import {
 import { Input } from "@/ui/shadcn/input";
 import Stripe from "../common/stripe";
 import { addPayment } from "@/app/(store)/manage/settings/action";
+import { useAction } from "next-safe-action/hooks";
+import { useAlert } from "@/lib/hooks";
 
 interface Props {
   data: {
@@ -33,13 +35,20 @@ export function FormPayment({ data }: Props): JSX.Element {
     defaultValues: data || { apiKey: "", privateKey: "", urlCallback: "" },
   });
 
-  async function onSubmit(values: z.infer<typeof formPayment>): Promise<void> {
-    await addPayment(values);
-  }
+  const { notice, warning } = useAlert();
+
+  const { execute, status } = useAction(addPayment, {
+    onSuccess: () => {
+      notice("settings saved successfully");
+    },
+    onError: () => {
+      warning("There was an error saving settings");
+    },
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+      <form onSubmit={form.handleSubmit(execute)} className="space-y-2">
         <Stripe width={80} height={40} />
         <FormField
           control={form.control}
@@ -94,8 +103,8 @@ export function FormPayment({ data }: Props): JSX.Element {
           />
         </div>
 
-        <Button>
-          {form.formState.isSubmitting && (
+        <Button disabled={status === "executing"}>
+          {status === "executing" && (
             <Loader size={14} className="mr-1 animate-spin" />
           )}
           Save
