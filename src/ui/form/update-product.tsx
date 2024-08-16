@@ -29,6 +29,7 @@ import {
 } from "@/ui/shadcn/dialog";
 import { useContext, useEffect } from "react";
 import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
+import { useAlert } from "@/lib/hooks";
 
 export function UpdateProduct(): JSX.Element {
   const { product, id, isEdit, setIsEdit } = useContext(CatalogContext);
@@ -38,6 +39,8 @@ export function UpdateProduct(): JSX.Element {
     defaultValues: product,
   });
 
+  const { notice, warning } = useAlert();
+
   useEffect(() => {
     if (product) {
       form.reset(product);
@@ -46,11 +49,11 @@ export function UpdateProduct(): JSX.Element {
 
   const { execute, status } = useAction(updateProduct.bind(null, id), {
     onSuccess: () => {
-      alert("test update");
+      notice("Product updated successfully");
       setIsEdit(false);
     },
     onError: () => {
-      alert("Error");
+      warning("there was an error the product could not be updated");
     },
   });
 

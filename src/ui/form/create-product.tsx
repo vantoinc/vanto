@@ -29,6 +29,7 @@ import { useState } from "react";
 import { AddVariant } from "@/ui/common/add-variant";
 import { RadioGroup, RadioGroupItem } from "../shadcn/radio-group";
 import { useAction } from "next-safe-action/hooks";
+import { useAlert } from "@/lib/hooks";
 
 export function CreateProduct(): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
@@ -37,6 +38,8 @@ export function CreateProduct(): JSX.Element {
     resolver: zodResolver(formProduct),
   });
 
+  const { notice, warning } = useAlert();
+
   const handleOpen = (): void => {
     form.reset();
     setOpen(true);
@@ -44,11 +47,11 @@ export function CreateProduct(): JSX.Element {
 
   const { execute, status } = useAction(createProduct, {
     onSuccess: () => {
-      alert("test create");
+      notice("successfully created product");
       setOpen(false);
     },
     onError: () => {
-      alert("Error");
+      warning("There was an error creating the product");
     },
   });
 
