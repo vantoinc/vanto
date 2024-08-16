@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
@@ -27,7 +27,7 @@ export const createProduct = authActionClient
       include: { Variant: true },
     });
 
-    revalidatePath("/manage/catalog");
+    revalidateTag(`products_${userId}`);
   });
 
 export const updateProduct = authActionClient
@@ -66,7 +66,7 @@ export const updateProduct = authActionClient
         return product;
       });
 
-      revalidatePath("/manage/catalog");
+      revalidateTag(`products_${userId}`);
     },
   );
 

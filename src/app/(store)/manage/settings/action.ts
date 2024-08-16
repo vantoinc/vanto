@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 import { prisma } from "@/lib/prisma";
 import { authActionClient } from "@/lib/safe-action";
@@ -26,5 +26,5 @@ export const addPayment = authActionClient
       },
     });
 
-    revalidatePath("/manage/settings");
+    revalidateTag(`settings_${userId}`);
   });

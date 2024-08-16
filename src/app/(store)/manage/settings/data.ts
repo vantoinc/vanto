@@ -1,26 +1,32 @@
 import "server-only";
 
-import { auth } from "@/lib/auth";
+import { unstable_cache } from "next/cache";
+
+import { withAdmin } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
 
-export async function getMethodPayment(): Promise<{
+export const getMethodPayment = (): Promise<{
   apiKey: string | null;
   privateKey: string | null;
   urlCallback: string | null;
-} | null> {
-  const session = await auth();
-  if (!session) return null;
+} | null> =>
+  withAdmin((userId) => {
+    return unstable_cache(
+      async () => {
+        const methodPayment = await prisma.payment.findFirst({
+          select: {
+            apiKey: true,
+            privateKey: true,
+            urlCallback: true,
+          },
+          where: {
+            userId,
+          },
+        });
 
-  const methodPayment = await prisma.payment.findFirst({
-    select: {
-      apiKey: true,
-      privateKey: true,
-      urlCallback: true,
-    },
-    where: {
-      userId: session.user.id,
-    },
+        return methodPayment;
+      },
+      ["settings", userId],
+      { revalidate: 180, tags: [`settings_${userId}`] },
+    )();
   });
-
-  return methodPayment;
-}
