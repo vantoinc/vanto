@@ -10,9 +10,24 @@ import {
   TableRow,
 } from "@/ui/shadcn/table";
 import { Skeleton } from "@/ui/shadcn/skeleton";
-import { Package } from "lucide-react";
+import { EmptyProduct } from "./empty-product";
 
 const ITEMS_PER_PAGE = 10;
+
+const calculatePagination = (currentPage: number, total: number) => {
+  const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+  const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+  return { start, end, totalPages };
+};
+
+const productData = (product: Product): ProductSummary => ({
+  name: product.name,
+  price: product.price,
+  description: product.description ?? undefined,
+  billing: product.billing,
+  Variant: product.Variant,
+});
 
 export async function TableProducts({
   currentPage,
@@ -20,34 +35,12 @@ export async function TableProducts({
   currentPage: number;
 }): Promise<JSX.Element> {
   const { products, total } = await getProducts(currentPage, ITEMS_PER_PAGE);
-  const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
-  const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
-  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-
-  const productData = (product: Product): ProductSummary => ({
-    name: product.name,
-    price: product.price,
-    description: product.description ?? undefined,
-    billing: product.billing,
-    Variant: product.Variant,
-  });
+  const { start, end, totalPages } = calculatePagination(currentPage, total);
 
   return (
     <>
       <TableBody>
-        {products.length < 1 && (
-          <TableRow>
-            <TableCell colSpan={3} className="text-center">
-              <div className="bg-muted inline-block rounded-full p-3">
-                <Package size={44} />
-              </div>
-              <h2 className="text-xl font-bold">No products yet</h2>
-              <p className="text-muted-foreground">
-                there are no products at the moment
-              </p>
-            </TableCell>
-          </TableRow>
-        )}
+        {products.length < 1 && <EmptyProduct />}
         {products.map((product) => (
           <TableRow key={product.id}>
             <TableCell>{product.name}</TableCell>

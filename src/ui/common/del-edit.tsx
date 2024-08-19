@@ -8,7 +8,7 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { Edit2, Ellipsis, Trash2 } from "lucide-react";
 import { ProductSummary } from "@/types/product";
-import { useContext } from "react";
+import { memo, useCallback, useContext } from "react";
 import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
 
 interface Props {
@@ -16,9 +16,20 @@ interface Props {
   product: ProductSummary;
 }
 
-export function DelEdit({ id, product }: Props): JSX.Element {
+function DelEditComponent({ id, product }: Props): JSX.Element {
   const { setId, setIsRemove, setIsEdit, setProduct } =
     useContext(CatalogContext);
+
+  const handleEdit = useCallback(() => {
+    setIsEdit(true);
+    setProduct(product);
+    setId(id);
+  }, [setIsEdit, setProduct, setId, id, product]);
+
+  const handleRemove = useCallback(() => {
+    setIsRemove(true);
+    setId(id);
+  }, [setIsRemove, setId, id]);
 
   return (
     <DropdownMenu>
@@ -26,24 +37,16 @@ export function DelEdit({ id, product }: Props): JSX.Element {
         <Ellipsis size={18} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => {
-            setIsEdit(true);
-            setProduct(product);
-            setId(id);
-          }}
-        >
+        <DropdownMenuItem onClick={handleEdit}>
           <Edit2 size={12} className="mr-2" /> Edit
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            setIsRemove(true);
-            setId(id);
-          }}
-        >
+
+        <DropdownMenuItem onClick={handleRemove}>
           <Trash2 size={12} className="mr-2" /> Remove
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
+export const DelEdit = memo(DelEditComponent);
