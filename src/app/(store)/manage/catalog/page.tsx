@@ -1,10 +1,10 @@
-import { CreateProduct } from "@/ui/form/create-product";
+import { CreateProduct } from "@/ui/common/create-product";
 import { Table, TableHead, TableHeader, TableRow } from "@/ui/shadcn/table";
 import { Suspense } from "react";
 import { ProductLoader, TableProducts } from "@/ui/common/table-products";
 import { CatalogProvider } from "./catalog-provider";
 import { RemoveItem } from "@/ui/form/remove-item";
-import { UpdateProduct } from "@/ui/form/update-product";
+import { UpdateProduct } from "@/ui/common/update-product";
 
 export default async function Catalog({
   searchParams,
