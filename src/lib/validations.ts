@@ -19,6 +19,12 @@ const typeNumber = z.union([
 export const formProduct = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
+  imageUrl: z
+    .instanceof(File)
+    .refine((file) => file.size < 2000000, {
+      message: "Your resume must be less than 2MB.",
+    })
+    .optional(),
   price: typePrice,
   billing: z.enum(["one", "subs"]),
   Variant: z.array(

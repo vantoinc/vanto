@@ -1,9 +1,9 @@
 "use client";
 
-import { Loader } from "lucide-react";
-import { AddVariant } from "../common/add-variant";
-import { Button } from "../shadcn/button";
-import { DialogClose } from "../shadcn/dialog";
+import { Loader, Upload } from "lucide-react";
+import { AddVariant } from "@/ui/common/add-variant";
+import { Button } from "@/ui/shadcn/button";
+import { DialogClose } from "@/ui/shadcn/dialog";
 import {
   FormControl,
   FormDescription,
@@ -18,6 +18,7 @@ import type { HookActionStatus } from "next-safe-action/hooks";
 import type { Control } from "react-hook-form";
 import { formProduct } from "@/lib/validations";
 import { z } from "zod";
+import { useRef } from "react";
 
 interface Props {
   action: () => void;
@@ -27,6 +28,8 @@ interface Props {
 }
 
 export function FormProduct({ action, status, control, type = "add" }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <form onSubmit={action} className="space-y-3">
       <FormField
@@ -62,6 +65,40 @@ export function FormProduct({ action, status, control, type = "add" }: Props) {
           </FormItem>
         )}
       />
+
+      <div>
+        <FormField
+          control={control}
+          name="imageUrl"
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => inputRef.current?.click()}
+              >
+                <Upload size={16} className="mr-1.5" /> Upload Image
+              </Button>
+              <FormDescription className="text-xs">
+                JPEG, PNG or WEBP under 2MB.
+              </FormDescription>
+              <FormControl>
+                <Input
+                  {...fieldProps}
+                  ref={inputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => {
+                    onChange(event.target?.files?.[0] ?? undefined);
+                  }}
+                  className="hidden"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <FormField

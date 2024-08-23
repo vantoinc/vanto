@@ -4,7 +4,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/ui/shadcn/form";
-import { updateProduct } from "@/app/(store)/manage/catalog/action";
+import {
+  updateProduct,
+  uploadImage,
+} from "@/app/(store)/manage/catalog/action";
 import { formProduct } from "@/lib/validations";
 import { useAction } from "next-safe-action/hooks";
 import {
@@ -34,7 +37,7 @@ export function UpdateProduct(): JSX.Element {
     }
   }, [form, product]);
 
-  const { execute, status } = useAction(updateProduct.bind(null, id), {
+  const { executeAsync, status } = useAction(updateProduct.bind(null, id), {
     onSuccess: () => {
       notice("Product updated successfully");
       setIsEdit(false);
@@ -43,6 +46,26 @@ export function UpdateProduct(): JSX.Element {
       warning("there was an error the product could not be updated");
     },
   });
+
+  const onSubmit = async (value: z.infer<typeof formProduct>) => {
+    let imageUrl: string | undefined;
+
+    if (value.imageUrl instanceof File) {
+      const formData = new FormData();
+      formData.append("image", value.imageUrl);
+      imageUrl = await uploadImage(formData);
+    } else if (typeof value.imageUrl === "string") {
+      imageUrl = value.imageUrl;
+    }
+
+    const dataToSend = { ...value, imageUrl };
+
+    if (imageUrl === undefined) {
+      delete dataToSend.imageUrl;
+    }
+
+    await executeAsync(dataToSend);
+  };
 
   return (
     <Dialog open={isEdit} onOpenChange={setIsEdit}>
@@ -53,7 +76,7 @@ export function UpdateProduct(): JSX.Element {
 
         <Form {...form}>
           <FormProduct
-            action={form.handleSubmit(execute)}
+            action={form.handleSubmit(onSubmit)}
             control={form.control}
             status={status}
             type="edit"

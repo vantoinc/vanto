@@ -12,7 +12,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/ui/shadcn/form";
-import { createProduct } from "@/app/(store)/manage/catalog/action";
+import {
+  createProduct,
+  uploadImage,
+} from "@/app/(store)/manage/catalog/action";
 import { formProduct } from "@/lib/validations";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
@@ -34,7 +37,7 @@ export function CreateProduct(): JSX.Element {
     setOpen(true);
   };
 
-  const { execute, status } = useAction(createProduct, {
+  const { executeAsync, status } = useAction(createProduct, {
     onSuccess: () => {
       notice("successfully created product");
       setOpen(false);
@@ -43,6 +46,26 @@ export function CreateProduct(): JSX.Element {
       warning("There was an error creating the product");
     },
   });
+
+  const onSubmit = async (value: z.infer<typeof formProduct>) => {
+    let imageUrl: string | undefined;
+
+    if (value.imageUrl instanceof File) {
+      const formData = new FormData();
+      formData.append("image", value.imageUrl);
+      imageUrl = await uploadImage(formData);
+    } else if (typeof value.imageUrl === "string") {
+      imageUrl = value.imageUrl;
+    }
+
+    const dataToSend = { ...value, imageUrl };
+
+    if (imageUrl === undefined) {
+      delete dataToSend.imageUrl;
+    }
+
+    await executeAsync(dataToSend);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -57,7 +80,7 @@ export function CreateProduct(): JSX.Element {
         </DialogHeader>
         <Form {...form}>
           <FormProduct
-            action={form.handleSubmit(execute)}
+            action={form.handleSubmit(onSubmit)}
             control={form.control}
             status={status}
           />
