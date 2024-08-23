@@ -45,10 +45,11 @@ export async function TableProducts({
         {products.map((product) => (
           <TableRow key={product.id}>
             <TableCell className="flex items-center gap-2">
-              <div className="object-cover size-10 relative">
+              <div className="object-cover size-8 relative">
                 <Image
                   src={`/upload/${product.imageUrl}`}
                   alt={product.name}
+                  className="rounded-md"
                   fill
                 />
               </div>
