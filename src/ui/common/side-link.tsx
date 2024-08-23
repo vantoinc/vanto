@@ -18,11 +18,14 @@ export function SideLink({ path, title, Icon }: Props): JSX.Element {
     <Link
       href={path}
       className={cn(
-        "flex items-center gap-3 rounded-md p-2 px-0 text-xl text-muted-foreground hover:text-yellow-600 dark:hover:text-yellow-300",
-        { "text-yellow-600 dark:text-yellow-300": pathname === path },
+        "flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:text-foreground",
+        {
+          "text-foreground bg-muted shadow-sm shadow-zinc-300 dark:shadow-black":
+            pathname === path,
+        },
       )}
     >
-      <Icon size={26} /> {title}
+      <Icon size={20} /> {title}
     </Link>
   );
 }
