@@ -11,6 +11,7 @@ import {
 } from "@/ui/shadcn/table";
 import { Skeleton } from "@/ui/shadcn/skeleton";
 import { EmptyProduct } from "./empty-product";
+import Image from "next/image";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -43,7 +44,16 @@ export async function TableProducts({
         {products.length < 1 && <EmptyProduct />}
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell>{product.name}</TableCell>
+            <TableCell className="flex items-center gap-2">
+              <div className="object-cover size-10 relative">
+                <Image
+                  src={`/upload/${product.imageUrl}`}
+                  alt={product.name}
+                  fill
+                />
+              </div>
+              {product.name}
+            </TableCell>
             <TableCell className="text-right">
               {formatCurrency(product.price, "$")}
             </TableCell>
