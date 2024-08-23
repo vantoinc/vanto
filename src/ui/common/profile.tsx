@@ -1,12 +1,14 @@
 import { auth } from "@/lib/auth";
 import Image from "next/image";
-import { ToggleTheme } from "./toggle-theme";
+import { ToggleTheme } from "@/ui/common/toggle-theme";
+import { Logout } from "@/ui/common/logout";
 
 export async function Profile(): Promise<JSX.Element> {
   const session = await auth();
   return (
     <>
-      <div className="mt-auto">
+      <div className="mt-auto flex gap-1">
+        <Logout />
         <ToggleTheme />
       </div>
 
