@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/ui/shadcn/table";
 import { Skeleton } from "@/ui/shadcn/skeleton";
-import { EmptyProduct } from "./empty-product";
+import { EmptyProduct } from "@/ui/common/empty-product";
 import Image from "next/image";
 
 const ITEMS_PER_PAGE = 10;
@@ -25,6 +25,7 @@ const calculatePagination = (currentPage: number, total: number) => {
 const productData = (product: Product): ProductSummary => ({
   name: product.name,
   price: product.price,
+  stock: product.stock,
   description: product.description ?? undefined,
   Variant: product.Variant,
 });
@@ -54,6 +55,7 @@ export async function TableProducts({
               </div>
               {product.name}
             </TableCell>
+            <TableCell className="text-right">{product.stock}</TableCell>
             <TableCell className="text-right">
               {formatCurrency(product.price, "$")}
             </TableCell>

@@ -9,11 +9,15 @@ export type Product = {
   description: string | null;
   imageUrl: string | null;
   price: number;
+  stock: number;
   userId: string;
   Variant: Variant[];
 } & Dates;
 
-export type ProductSummary = Pick<Product, "name" | "price" | "Variant"> & {
+export type ProductSummary = Pick<
+  Product,
+  "name" | "price" | "stock" | "Variant"
+> & {
   description?: string;
 };
 

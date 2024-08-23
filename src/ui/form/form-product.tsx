@@ -113,6 +113,20 @@ export function FormProduct({ action, status, control, type = "add" }: Props) {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={control}
+          name="stock"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Stock</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
 
       <AddVariant />
