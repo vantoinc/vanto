@@ -21,7 +21,7 @@ export function AddVariant(): JSX.Element {
         size="sm"
         onClick={() => append({ name: "", quantity: 0, price: 0 })}
       >
-        <PlusCircle className="mr-1" />
+        <PlusCircle size={16} className="mr-1.5" />
         Add variants
       </Button>
 
