@@ -26,7 +26,6 @@ export const formProduct = z.object({
     })
     .optional(),
   price: typePrice,
-  billing: z.enum(["one", "subs"]),
   Variant: z.array(
     z.object({
       name: z.string().min(1),

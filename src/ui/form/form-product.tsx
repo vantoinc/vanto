@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "../shadcn/form";
 import { Input } from "../shadcn/input";
-import { RadioGroup, RadioGroupItem } from "../shadcn/radio-group";
 import type { HookActionStatus } from "next-safe-action/hooks";
 import type { Control } from "react-hook-form";
 import { formProduct } from "@/lib/validations";
@@ -109,36 +108,6 @@ export function FormProduct({ action, status, control, type = "add" }: Props) {
               <FormLabel>Price</FormLabel>
               <FormControl>
                 <Input type="number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
-          name="billing"
-          render={({ field }) => (
-            <FormItem className="mt-5">
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
-                      <RadioGroupItem value="one" />
-                    </FormControl>
-                    <FormLabel>Single payment</FormLabel>
-                  </FormItem>
-
-                  <FormItem className="flex items-center space-x-3">
-                    <FormControl>
-                      <RadioGroupItem value="subs" />
-                    </FormControl>
-                    <FormLabel>Subscription</FormLabel>
-                  </FormItem>
-                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>
