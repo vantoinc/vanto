@@ -26,7 +26,6 @@ const productData = (product: Product): ProductSummary => ({
   name: product.name,
   price: product.price,
   description: product.description ?? undefined,
-  billing: product.billing,
   Variant: product.Variant,
 });
 
