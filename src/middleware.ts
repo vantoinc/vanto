@@ -7,7 +7,7 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
   const urlError = new URL("/", nextUrl.origin);
 
-  const publicPaths = ["/"];
+  const publicPaths = ["/", "/login"];
   if (
     publicPaths.includes(nextUrl.pathname) ||
     nextUrl.pathname.startsWith("/api/")
@@ -16,6 +16,13 @@ export default auth((req) => {
   }
 
   if (!isLoggedIn) {
+    return NextResponse.redirect(urlError);
+  }
+
+  if (
+    nextUrl.pathname.startsWith("/dashboard") &&
+    req.auth?.user.role !== "admin"
+  ) {
     return NextResponse.redirect(urlError);
   }
 

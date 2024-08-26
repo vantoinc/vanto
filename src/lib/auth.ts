@@ -15,11 +15,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user && user.id) {
         token.id = user.id;
       }
+      if (user && user.email === process.env.AUTH_EMAIL_ADMIN) {
+        token.role = "admin";
+      } else {
+        token.role = "user";
+      }
       return token;
     },
     session: ({ session, token }: { session: Session; token: JWT }) => {
       if (session.user && token.sub) {
         session.user.id = token.sub;
+      }
+      if (session.user && session.user.email === process.env.AUTH_EMAIL_ADMIN) {
+        session.user.role = "admin";
+      } else {
+        session.user.role = "user";
       }
       return session;
     },
