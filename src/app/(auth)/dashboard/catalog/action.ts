@@ -106,5 +106,5 @@ export const updateProduct = authActionClient
 export async function removeProduct(id: number): Promise<void> {
   await prisma.product.delete({ where: { id } });
 
-  revalidatePath("/manage/catalog");
+  revalidatePath("/dashboard/catalog");
 }

@@ -7,7 +7,7 @@ import { Form } from "@/ui/shadcn/form";
 import {
   updateProduct,
   uploadImage,
-} from "@/app/(store)/manage/catalog/action";
+} from "@/app/(auth)/dashboard/catalog/action";
 import { formProduct } from "@/lib/validations";
 import { useAction } from "next-safe-action/hooks";
 import {
@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from "@/ui/shadcn/dialog";
 import { useContext, useEffect } from "react";
-import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
+import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
 import { useAlert } from "@/lib/hooks";
 import { FormProduct } from "@/ui/form/form-product";
 

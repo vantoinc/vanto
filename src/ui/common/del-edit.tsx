@@ -9,7 +9,7 @@ import {
 import { Edit2, Ellipsis, Trash2 } from "lucide-react";
 import { ProductSummary } from "@/types/product";
 import { memo, useCallback, useContext } from "react";
-import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
+import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
 
 interface Props {
   id: number;

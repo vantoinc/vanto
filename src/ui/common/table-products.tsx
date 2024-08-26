@@ -2,7 +2,7 @@ import { DelEdit } from "@/ui/common/del-edit";
 import { Product, ProductSummary } from "@/types/product";
 import { PrevNext } from "@/ui/common/prev-next";
 import { formatCurrency } from "@/lib/utils";
-import { getProducts } from "@/app/(store)/manage/catalog/data";
+import { getProducts } from "@/app/(auth)/dashboard/catalog/data";
 import {
   TableBody,
   TableCaption,

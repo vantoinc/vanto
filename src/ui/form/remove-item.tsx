@@ -1,7 +1,7 @@
 "use client";
 
-import { removeProduct } from "@/app/(store)/manage/catalog/action";
-import { CatalogContext } from "@/app/(store)/manage/catalog/catalog-provider";
+import { removeProduct } from "@/app/(auth)/dashboard/catalog/action";
+import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
 import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,

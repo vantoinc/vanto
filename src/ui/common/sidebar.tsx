@@ -12,15 +12,23 @@ import { SideLink } from "@/ui/common/side-link";
 export function Sidebar(): JSX.Element {
   return (
     <>
-      <SideLink path={"/manage"} title="Dashboard" Icon={LayoutDashboardIcon} />
+      <SideLink
+        path={"/dashboard"}
+        title="Dashboard"
+        Icon={LayoutDashboardIcon}
+      />
 
-      <SideLink path={"/manage/catalog"} title="Catalog" Icon={Package} />
+      <SideLink path={"/dashboard/catalog"} title="Catalog" Icon={Package} />
 
-      <SideLink path={"/manage/orders"} title="Orders" Icon={ShoppingCart} />
+      <SideLink path={"/dashboard/orders"} title="Orders" Icon={ShoppingCart} />
 
-      <SideLink path={"/manage/analytics"} title="Analytics" Icon={ChartLine} />
+      <SideLink
+        path={"/dashboard/analytics"}
+        title="Analytics"
+        Icon={ChartLine}
+      />
 
-      <SideLink path={"/manage/settings"} title="Settings" Icon={Settings} />
+      <SideLink path={"/dashboard/settings"} title="Settings" Icon={Settings} />
     </>
   );
 }

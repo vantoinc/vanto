@@ -24,7 +24,7 @@ export function PrevNext({
 
   function nextPage(): void {
     if (hasNext) {
-      router.push(`/manage/catalog?page=${page + 1}`);
+      router.push(`/dashboard/catalog?page=${page + 1}`);
     }
   }
 

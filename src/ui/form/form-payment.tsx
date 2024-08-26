@@ -17,7 +17,7 @@ import {
 } from "@/ui/shadcn/form";
 import { Input } from "@/ui/shadcn/input";
 import Stripe from "../common/stripe";
-import { addPayment } from "@/app/(store)/manage/settings/action";
+import { addPayment } from "@/app/(auth)/dashboard/settings/action";
 import { useAction } from "next-safe-action/hooks";
 import { useAlert } from "@/lib/hooks";
 

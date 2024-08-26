@@ -15,7 +15,7 @@ import { Form } from "@/ui/shadcn/form";
 import {
   createProduct,
   uploadImage,
-} from "@/app/(store)/manage/catalog/action";
+} from "@/app/(auth)/dashboard/catalog/action";
 import { formProduct } from "@/lib/validations";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";

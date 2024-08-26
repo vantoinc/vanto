@@ -7,8 +7,8 @@ import { auth, signIn } from "@/lib/auth";
 export async function signInGoogle(): Promise<void> {
   const session = await auth();
   if (!session) {
-    await signIn("google", { redirectTo: "/manage" });
+    await signIn("google", { redirectTo: "/dashboard" });
     return;
   }
-  redirect("/manage");
+  redirect("/dashboard");
 }
