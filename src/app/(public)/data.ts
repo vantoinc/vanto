@@ -27,3 +27,17 @@ export const getAllProduct = (
     { revalidate: 180, tags: [`all_products`] },
   )();
 };
+
+export const singleProduct = (id: number): Promise<Product | null> => {
+  return unstable_cache(
+    async () => {
+      const product = await prisma.product.findUnique({
+        where: { id },
+        include: { Variant: true },
+      });
+      return product;
+    },
+    ["product"],
+    { revalidate: 180, tags: ["single-product"] },
+  )();
+};

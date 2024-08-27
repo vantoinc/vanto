@@ -26,3 +26,10 @@ export function generateToken(length: number = 9): string {
   }
   return token;
 }
+
+export function generateSlug(text: string): string {
+  const slug = text.toLowerCase().replace(/\s+/g, "-");
+  const cleanSlug = slug.replace(/[^a-z0-9-]/g, "");
+
+  return cleanSlug;
+}

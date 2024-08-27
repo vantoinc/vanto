@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/ui/shadcn/card";
 import { getAllProduct } from "./data";
 import Image from "next/image";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, generateSlug } from "@/lib/utils";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 
@@ -38,13 +38,17 @@ export default async function Home(): Promise<JSX.Element> {
                     className="overflow-hidden bg-white dark:bg-muted border dark:border-zinc-800"
                   >
                     <CardContent className="p-0">
-                      <Image
-                        alt={product.name}
-                        className="w-full h-60"
-                        height="240"
-                        src={`/upload/${product.imageUrl}`}
-                        width="360"
-                      />
+                      <Link
+                        href={`/product/${product.id}-${generateSlug(product.name)}`}
+                      >
+                        <Image
+                          alt={product.name}
+                          className="w-full h-60"
+                          height="240"
+                          src={`/upload/${product.imageUrl}`}
+                          width="360"
+                        />
+                      </Link>
                       <div className="p-4">
                         <h3 className="font-semibold text-lg mb-1">
                           {product.name}
