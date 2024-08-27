@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { singleProduct } from "../../data";
 import Image from "next/image";
 import { formatCurrency } from "@/lib/utils";
@@ -13,7 +13,7 @@ export default async function SingleProduct({
   const product = await singleProduct(Number(id));
 
   if (!product) {
-    redirect("/");
+    return notFound();
   }
 
   return (
