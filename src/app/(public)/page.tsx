@@ -2,19 +2,35 @@ import { Card, CardContent } from "@/ui/shadcn/card";
 import { getAllProduct } from "./data";
 import Image from "next/image";
 import { formatCurrency } from "@/lib/utils";
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
 
 export default async function Home(): Promise<JSX.Element> {
   const { products } = await getAllProduct();
 
   return (
     <>
+      <header className="px-4 border-b">
+        <div className="w-full md:w-[1024px] lg:w-[1200px] h-14 mx-auto flex items-center">
+          <Link href="/">
+            <ShoppingBag size={28} />
+          </Link>
+
+          <div className="ml-auto">
+            <Link href="#">Home</Link>
+          </div>
+        </div>
+      </header>
+
       <main>
+        <section className="h-52"></section>
+
         <section className="bg-gray-100 dark:bg-muted py-12">
           <div className="px-4 w-full md:w-[1024px] lg:w-[1200px] mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-8">
               Products
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products &&
                 products.map((product) => (
                   <Card
