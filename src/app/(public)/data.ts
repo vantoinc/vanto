@@ -23,7 +23,7 @@ export const getAllProduct = (
 
       return { products, total };
     },
-    ["products"],
+    ["home-products", String(page)],
     { revalidate: 180, tags: [`all_products`] },
   )();
 };
@@ -37,7 +37,7 @@ export const singleProduct = (id: number): Promise<Product | null> => {
       });
       return product;
     },
-    ["product"],
-    { revalidate: 180, tags: ["single-product"] },
+    ["single-product", String(id)],
+    { revalidate: 180, tags: [`single-product-${id}`] },
   )();
 };
