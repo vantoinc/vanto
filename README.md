@@ -1,4 +1,5 @@
 # Tilby
+
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 **Open-Source** e-commerce
@@ -12,9 +13,10 @@
 [![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white&logoWidth=20)](https://ui.shadcn.com/)
 [![prisma](https://img.shields.io/badge/prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white&logoWidth=20)](https://www.prisma.io/)
 [![zod](https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white&logoWidth=20)](https://zod.dev/)
+[![next-safe-action](https://img.shields.io/badge/next--safe--action-F7B93E?style=for-the-badge&logo=nextdotjs&logoColor=black&logoWidth=20&link=https://next-safe-action.dev/)](https://next-safe-action.dev/)
 [![react hook form](https://img.shields.io/badge/react%20hook%20form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white&logoWidth=20)](https://react-hook-form.com/)
-
-
+[![eslint](https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white&logoWidth=20&link=https://eslint.org/)](https://eslint.org/)
+[![prettier](https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black&logoWidth=20&link=https://prettier.io/)](https://prettier.io/)
 
 ## 🚀 Support
 
