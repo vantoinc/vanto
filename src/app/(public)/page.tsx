@@ -17,7 +17,10 @@ export default async function Home(): Promise<JSX.Element> {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products &&
                 products.map((product) => (
-                  <Card key={product.id} className="overflow-hidden">
+                  <Card
+                    key={product.id}
+                    className="overflow-hidden bg-white dark:bg-muted border dark:border-zinc-800"
+                  >
                     <CardContent className="p-0">
                       <Image
                         alt={product.name}
