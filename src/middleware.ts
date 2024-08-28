@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
 
-const publicPaths = ["/", "/login", "/product/:id"];
+const publicPaths = ["/login", "/product/:id"];
 
 const isPublicPath = (path: string): boolean => {
+  if (path === "/") return false;
   return publicPaths.some((pattern) => {
     const regexPattern = pattern
       .replace(/\//g, "\\/")
@@ -14,11 +15,16 @@ const isPublicPath = (path: string): boolean => {
 };
 
 export default auth((req) => {
-  const { nextUrl } = req;
-  const isLoggedIn = !!req.auth;
-  const urlError = new URL("/", nextUrl.origin);
+  const { nextUrl, auth } = req;
+  const isLoggedIn = !!auth;
+  const urlError = new URL("/login", nextUrl.origin);
+  const dashboard = new URL("/dashboard", nextUrl.origin);
 
-  if (isPublicPath(nextUrl.pathname) || nextUrl.pathname.startsWith("/api/")) {
+  if (nextUrl.pathname === "/") {
+    return NextResponse.redirect(dashboard);
+  }
+
+  if (isPublicPath(nextUrl.pathname)) {
     return NextResponse.next();
   }
 

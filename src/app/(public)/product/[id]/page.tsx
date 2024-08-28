@@ -6,7 +6,7 @@ import { formatCurrency } from "@/lib/utils";
 import { Header } from "@/ui/common/header";
 import { Button } from "@/ui/shadcn/button";
 
-import { singleProduct } from "../../data";
+import { singleProduct } from "./data";
 
 export async function generateMetadata({
   params,
