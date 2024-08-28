@@ -1,8 +1,8 @@
-import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { formatCurrency, generateSlug } from "@/lib/utils";
+import { Header } from "@/ui/common/header";
 import { Card, CardContent } from "@/ui/shadcn/card";
 
 import { getAllProduct } from "./data";
@@ -12,17 +12,7 @@ export default async function Home(): Promise<JSX.Element> {
 
   return (
     <>
-      <header className="border-b px-4">
-        <div className="mx-auto flex h-14 w-full items-center md:w-[1024px] lg:w-[1200px]">
-          <Link href="/">
-            <ShoppingBag size={28} />
-          </Link>
-
-          <div className="ml-auto">
-            <Link href="#">Home</Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main>
         <section className="h-52"></section>

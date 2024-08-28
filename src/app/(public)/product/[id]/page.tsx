@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { formatCurrency } from "@/lib/utils";
+import { Header } from "@/ui/common/header";
 import { Button } from "@/ui/shadcn/button";
 
 import { singleProduct } from "../../data";
@@ -39,6 +40,8 @@ export default async function SingleProduct({
 
   return (
     <>
+      <Header />
+
       <main className="mx-auto grid w-full gap-8 py-8 md:w-[1024px] md:grid-cols-[1fr_460px] lg:w-[1200px]">
         <div className="h-[400px]">
           <Image
