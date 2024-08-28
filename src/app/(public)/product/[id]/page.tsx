@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -5,6 +6,24 @@ import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/ui/shadcn/button";
 
 import { singleProduct } from "../../data";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const [id, ..._slug] = params.id.split("-");
+  const product = await singleProduct(Number(id));
+
+  if (!product) {
+    return notFound();
+  }
+
+  return {
+    title: product.name,
+    description: product.description,
+  };
+}
 
 export default async function SingleProduct({
   params,
