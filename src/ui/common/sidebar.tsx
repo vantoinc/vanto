@@ -7,6 +7,7 @@ import {
   Settings,
   ShoppingCart,
 } from "lucide-react";
+
 import { SideLink } from "@/ui/common/side-link";
 
 export function Sidebar(): JSX.Element {

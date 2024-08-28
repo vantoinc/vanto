@@ -1,10 +1,11 @@
 "use client";
 
+import { PlusCircle, Trash2 } from "lucide-react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+
 import { Button } from "@/ui/shadcn/button";
 import { FormControl, FormField, FormItem, FormLabel } from "@/ui/shadcn/form";
 import { Input } from "@/ui/shadcn/input";
-import { PlusCircle, Trash2 } from "lucide-react";
-import { useFieldArray, useFormContext } from "react-hook-form";
 
 export function AddVariant(): JSX.Element {
   const form = useFormContext();

@@ -1,5 +1,9 @@
 "use client";
 
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Loader } from "lucide-react";
+import { useContext, useTransition } from "react";
+
 import { removeProduct } from "@/app/(auth)/dashboard/catalog/action";
 import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
 import { Button } from "@/ui/shadcn/button";
@@ -11,9 +15,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/ui/shadcn/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { Loader } from "lucide-react";
-import { useContext, useTransition } from "react";
 
 export function RemoveItem(): JSX.Element {
   const { isRemove, setIsRemove, id } = useContext(CatalogContext);

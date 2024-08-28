@@ -1,8 +1,9 @@
 "use client";
 
-import { Button } from "@/ui/shadcn/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+import { Button } from "@/ui/shadcn/button";
 
 export function PrevNext({
   page,

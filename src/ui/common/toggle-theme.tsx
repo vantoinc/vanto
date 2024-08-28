@@ -3,9 +3,10 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+
 import { Button } from "../shadcn/button";
 
-export function ToggleTheme() {
+export function ToggleTheme(): JSX.Element | null {
   const [mounted, setMounted] = useState<boolean>(false);
   const { theme, setTheme } = useTheme();
 

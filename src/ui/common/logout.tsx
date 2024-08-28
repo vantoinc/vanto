@@ -1,8 +1,9 @@
 import { Power } from "lucide-react";
-import { Button } from "@/ui/shadcn/button";
-import { signOut } from "@/lib/auth";
 
-export function Logout() {
+import { signOut } from "@/lib/auth";
+import { Button } from "@/ui/shadcn/button";
+
+export function Logout(): JSX.Element {
   return (
     <form
       action={async () => {

@@ -1,7 +1,8 @@
-import { auth } from "@/lib/auth";
 import Image from "next/image";
-import { ToggleTheme } from "@/ui/common/toggle-theme";
+
+import { auth } from "@/lib/auth";
 import { Logout } from "@/ui/common/logout";
+import { ToggleTheme } from "@/ui/common/toggle-theme";
 
 export async function Profile(): Promise<JSX.Element> {
   const session = await auth();

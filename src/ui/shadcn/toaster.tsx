@@ -10,7 +10,7 @@ import {
 } from "@/ui/shadcn/toast";
 import { useToast } from "@/ui/shadcn/use-toast";
 
-export function Toaster() {
+export function Toaster(): JSX.Element {
   const { toasts } = useToast();
 
   return (

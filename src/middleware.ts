@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 
 const publicPaths = ["/", "/login", "/product/:id"];
 
-const isPublicPath = (path: string) => {
+const isPublicPath = (path: string): boolean => {
   return publicPaths.some((pattern) => {
     const regexPattern = pattern
       .replace(/\//g, "\\/")

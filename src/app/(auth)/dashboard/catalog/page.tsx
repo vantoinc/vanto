@@ -1,10 +1,12 @@
-import { CreateProduct } from "@/ui/common/create-product";
-import { Table, TableHead, TableHeader, TableRow } from "@/ui/shadcn/table";
 import { Suspense } from "react";
+
+import { CreateProduct } from "@/ui/common/create-product";
 import { ProductLoader, TableProducts } from "@/ui/common/table-products";
-import { CatalogProvider } from "./catalog-provider";
-import { RemoveItem } from "@/ui/form/remove-item";
 import { UpdateProduct } from "@/ui/common/update-product";
+import { RemoveItem } from "@/ui/form/remove-item";
+import { Table, TableHead, TableHeader, TableRow } from "@/ui/shadcn/table";
+
+import { CatalogProvider } from "./catalog-provider";
 
 export default async function Catalog({
   searchParams,
@@ -27,8 +29,8 @@ export default async function Catalog({
         <TableHeader>
           <TableRow>
             <TableHead>Product</TableHead>
-            <TableHead className="text-right w-[120px]">Stock</TableHead>
-            <TableHead className="text-right w-[120px]">Price</TableHead>
+            <TableHead className="w-[120px] text-right">Stock</TableHead>
+            <TableHead className="w-[120px] text-right">Price</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>

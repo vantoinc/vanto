@@ -1,7 +1,8 @@
 "use client";
 
-import { ProductSummary } from "@/types/product";
 import { createContext, useState } from "react";
+
+import type { ProductSummary } from "@/types/product";
 
 interface ContextType {
   id: number;

@@ -1,5 +1,19 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusCircle } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
+
+import {
+  createProduct,
+  uploadImage,
+} from "@/app/(auth)/dashboard/catalog/action";
+import { useAlert } from "@/lib/hooks";
+import { formProduct } from "@/lib/validations";
+import { FormProduct } from "@/ui/form/form-product";
 import { Button } from "@/ui/shadcn/button";
 import {
   Dialog,
@@ -8,20 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/shadcn/dialog";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Form } from "@/ui/shadcn/form";
-import {
-  createProduct,
-  uploadImage,
-} from "@/app/(auth)/dashboard/catalog/action";
-import { formProduct } from "@/lib/validations";
-import { PlusCircle } from "lucide-react";
-import { useState } from "react";
-import { useAction } from "next-safe-action/hooks";
-import { useAlert } from "@/lib/hooks";
-import { FormProduct } from "@/ui/form/form-product";
 
 export function CreateProduct(): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
@@ -47,7 +48,9 @@ export function CreateProduct(): JSX.Element {
     },
   });
 
-  const onSubmit = async (value: z.infer<typeof formProduct>) => {
+  const onSubmit = async (
+    value: z.infer<typeof formProduct>,
+  ): Promise<void> => {
     let imageUrl: string | undefined;
 
     if (value.imageUrl instanceof File) {

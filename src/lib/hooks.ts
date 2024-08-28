@@ -1,6 +1,9 @@
 import { useToast } from "@/ui/shadcn/use-toast";
 
-export const useAlert = () => {
+export const useAlert = (): {
+  notice: (msg: string) => void;
+  warning: (msg: string) => void;
+} => {
   const { toast } = useToast();
 
   return {

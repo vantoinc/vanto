@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-const Stripe = (props: SVGProps<SVGSVGElement>) => (
+const Stripe = (props: SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"

@@ -1,6 +1,7 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
 import { Cards } from "@/ui/common/cards";
 import { FormPayment } from "@/ui/form/form-payment";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/shadcn/tabs";
+
 import { getMethodPayment } from "./data";
 
 export default async function Settings(): Promise<JSX.Element> {

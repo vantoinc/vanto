@@ -1,25 +1,26 @@
 "use client";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Form } from "@/ui/shadcn/form";
+import type { z } from "zod";
+
 import {
   updateProduct,
   uploadImage,
 } from "@/app/(auth)/dashboard/catalog/action";
+import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
+import { useAlert } from "@/lib/hooks";
 import { formProduct } from "@/lib/validations";
-import { useAction } from "next-safe-action/hooks";
+import { FormProduct } from "@/ui/form/form-product";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/ui/shadcn/dialog";
-import { useContext, useEffect } from "react";
-import { CatalogContext } from "@/app/(auth)/dashboard/catalog/catalog-provider";
-import { useAlert } from "@/lib/hooks";
-import { FormProduct } from "@/ui/form/form-product";
+import { Form } from "@/ui/shadcn/form";
 
 export function UpdateProduct(): JSX.Element {
   const { product, id, isEdit, setIsEdit } = useContext(CatalogContext);
@@ -47,7 +48,9 @@ export function UpdateProduct(): JSX.Element {
     },
   });
 
-  const onSubmit = async (value: z.infer<typeof formProduct>) => {
+  const onSubmit = async (
+    value: z.infer<typeof formProduct>,
+  ): Promise<void> => {
     let imageUrl: string | undefined;
 
     if (value.imageUrl instanceof File) {

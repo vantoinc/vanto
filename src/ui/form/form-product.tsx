@@ -1,9 +1,16 @@
 "use client";
 
 import { Loader, Upload } from "lucide-react";
+import type { HookActionStatus } from "next-safe-action/hooks";
+import { useRef } from "react";
+import type { Control } from "react-hook-form";
+import type { z } from "zod";
+
+import type { formProduct } from "@/lib/validations";
 import { AddVariant } from "@/ui/common/add-variant";
 import { Button } from "@/ui/shadcn/button";
 import { DialogClose } from "@/ui/shadcn/dialog";
+
 import {
   FormControl,
   FormDescription,
@@ -13,11 +20,6 @@ import {
   FormMessage,
 } from "../shadcn/form";
 import { Input } from "../shadcn/input";
-import type { HookActionStatus } from "next-safe-action/hooks";
-import type { Control } from "react-hook-form";
-import { formProduct } from "@/lib/validations";
-import { z } from "zod";
-import { useRef } from "react";
 
 interface Props {
   action: () => void;
@@ -26,7 +28,12 @@ interface Props {
   type?: "add" | "edit";
 }
 
-export function FormProduct({ action, status, control, type = "add" }: Props) {
+export function FormProduct({
+  action,
+  status,
+  control,
+  type = "add",
+}: Props): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -69,7 +76,7 @@ export function FormProduct({ action, status, control, type = "add" }: Props) {
         <FormField
           control={control}
           name="imageUrl"
-          render={({ field: { value, onChange, ...fieldProps } }) => (
+          render={({ field: { onChange, ...fieldProps } }) => (
             <FormItem>
               <Button
                 type="button"
@@ -87,6 +94,7 @@ export function FormProduct({ action, status, control, type = "add" }: Props) {
                   ref={inputRef}
                   type="file"
                   accept="image/*"
+                  value=""
                   onChange={(event) => {
                     onChange(event.target?.files?.[0] ?? undefined);
                   }}

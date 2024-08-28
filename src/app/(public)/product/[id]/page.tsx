@@ -1,8 +1,10 @@
-import { notFound } from "next/navigation";
-import { singleProduct } from "../../data";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/ui/shadcn/button";
+
+import { singleProduct } from "../../data";
 
 export default async function SingleProduct({
   params,
@@ -18,19 +20,19 @@ export default async function SingleProduct({
 
   return (
     <>
-      <main className="grid gap-8 py-8 md:grid-cols-[1fr_460px] w-full md:w-[1024px] lg:w-[1200px] mx-auto">
+      <main className="mx-auto grid w-full gap-8 py-8 md:w-[1024px] md:grid-cols-[1fr_460px] lg:w-[1200px]">
         <div className="h-[400px]">
           <Image
             src={`/upload/${product.imageUrl}`}
             width={400}
             height={400}
-            className="rounded-lg w-full h-[400px]"
+            className="h-[400px] w-full rounded-lg"
             alt={product.name}
           />
         </div>
         <div className="space-y-6">
           <h1 className="text-3xl font-bold">{product.name}</h1>
-          <strong className="text-xl block">
+          <strong className="block text-xl">
             {formatCurrency(product.price)}
           </strong>
 

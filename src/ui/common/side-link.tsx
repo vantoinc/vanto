@@ -1,9 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 
 interface Props {
   path: string;
@@ -20,7 +21,7 @@ export function SideLink({ path, title, Icon }: Props): JSX.Element {
       className={cn(
         "flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:text-foreground",
         {
-          "text-foreground bg-muted shadow-sm shadow-zinc-300 dark:shadow-black":
+          "bg-muted text-foreground shadow-sm shadow-zinc-300 dark:shadow-black":
             pathname === path,
         },
       )}

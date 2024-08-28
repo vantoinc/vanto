@@ -1,21 +1,25 @@
-import { DelEdit } from "@/ui/common/del-edit";
-import { Product, ProductSummary } from "@/types/product";
-import { PrevNext } from "@/ui/common/prev-next";
-import { formatCurrency } from "@/lib/utils";
+import Image from "next/image";
+
 import { getProducts } from "@/app/(auth)/dashboard/catalog/data";
+import { formatCurrency } from "@/lib/utils";
+import type { Product, ProductSummary } from "@/types/product";
+import { DelEdit } from "@/ui/common/del-edit";
+import { EmptyProduct } from "@/ui/common/empty-product";
+import { PrevNext } from "@/ui/common/prev-next";
+import { Skeleton } from "@/ui/shadcn/skeleton";
 import {
   TableBody,
   TableCaption,
   TableCell,
   TableRow,
 } from "@/ui/shadcn/table";
-import { Skeleton } from "@/ui/shadcn/skeleton";
-import { EmptyProduct } from "@/ui/common/empty-product";
-import Image from "next/image";
 
 const ITEMS_PER_PAGE = 10;
 
-const calculatePagination = (currentPage: number, total: number) => {
+const calculatePagination = (
+  currentPage: number,
+  total: number,
+): { start: number; end: number; totalPages: number } => {
   const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
   const end = Math.min(currentPage * ITEMS_PER_PAGE, total);
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
@@ -45,7 +49,7 @@ export async function TableProducts({
         {products.map((product) => (
           <TableRow key={product.id}>
             <TableCell className="flex items-center gap-2">
-              <div className="object-cover size-8 relative">
+              <div className="relative size-8 object-cover">
                 <Image
                   src={`/upload/${product.imageUrl}`}
                   alt={product.name}
@@ -59,7 +63,7 @@ export async function TableProducts({
             <TableCell className="text-right">
               {formatCurrency(product.price, "$")}
             </TableCell>
-            <TableCell className="text-right w-[80px]">
+            <TableCell className="w-[80px] text-right">
               <DelEdit id={product.id} product={productData(product)} />
             </TableCell>
           </TableRow>

@@ -1,11 +1,15 @@
 "use client";
 
-import { formPayment } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/ui/shadcn/button";
 import { Loader } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
+
+import { addPayment } from "@/app/(auth)/dashboard/settings/action";
+import { useAlert } from "@/lib/hooks";
+import { formPayment } from "@/lib/validations";
+import { Button } from "@/ui/shadcn/button";
 import {
   Form,
   FormControl,
@@ -16,10 +20,8 @@ import {
   FormMessage,
 } from "@/ui/shadcn/form";
 import { Input } from "@/ui/shadcn/input";
+
 import Stripe from "../common/stripe";
-import { addPayment } from "@/app/(auth)/dashboard/settings/action";
-import { useAction } from "next-safe-action/hooks";
-import { useAlert } from "@/lib/hooks";
 
 interface Props {
   data: {
