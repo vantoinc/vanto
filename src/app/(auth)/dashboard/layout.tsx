@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { Logo } from "@/ui/common/logo";
 import { Profile } from "@/ui/common/profile";
 import { Sidebar } from "@/ui/common/sidebar";
 
@@ -12,8 +11,8 @@ export default async function Layout({
     <>
       <div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
         <div className="sticky top-0 flex h-screen flex-col gap-2 overflow-y-auto border-r bg-zinc-50 p-6 dark:bg-muted/40">
-          <h1 className="mb-6 flex items-center gap-2 text-xl font-bold">
-            <Image src="/icon.png" alt="tilby" width={30} height={30} />
+          <h1 className="mb-6 flex items-center text-xl font-bold">
+            <Logo /> anto
           </h1>
 
           <Sidebar />
