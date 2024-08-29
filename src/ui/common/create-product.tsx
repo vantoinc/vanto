@@ -77,7 +77,7 @@ export function CreateProduct(): JSX.Element {
           <PlusCircle size={16} className="mr-1" /> Add Product
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[calc(100vh-30px)] overflow-y-auto">
+      <DialogContent className="max-h-[calc(100vh-30px)] max-w-4xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create Product</DialogTitle>
         </DialogHeader>

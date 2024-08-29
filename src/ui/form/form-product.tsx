@@ -20,6 +20,10 @@ import {
   FormMessage,
 } from "../shadcn/form";
 import { Input } from "../shadcn/input";
+import { Textarea } from "../shadcn/textarea";
+import { OptionA } from "../skeleton/option-a";
+import { OptionB } from "../skeleton/option-b";
+import { OptionC } from "../skeleton/option-c";
 
 interface Props {
   action: () => void;
@@ -37,85 +41,19 @@ export function FormProduct({
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <form onSubmit={action} className="space-y-3">
-      <FormField
-        control={control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Product name</FormLabel>
-            <FormDescription className="text-xs">
-              Give your product a short and clear name.
-            </FormDescription>
-            <FormControl>
-              <Input className="mt-2" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={control}
-        name="description"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Description (optional)</FormLabel>
-            <FormDescription className="text-xs">
-              Give your product a short and clear description.
-            </FormDescription>
-            <FormControl>
-              <Input className="mt-2" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <div>
+    <form onSubmit={action} className="grid grid-cols-2 gap-6">
+      <div className="space-y-3">
         <FormField
           control={control}
-          name="imageUrl"
-          render={({ field: { onChange, ...fieldProps } }) => (
+          name="name"
+          render={({ field }) => (
             <FormItem>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => inputRef.current?.click()}
-              >
-                <Upload size={16} className="mr-1.5" /> Upload Image
-              </Button>
+              <FormLabel>Product name</FormLabel>
               <FormDescription className="text-xs">
-                JPEG, PNG or WEBP under 2MB.
+                Give your product a short and clear name.
               </FormDescription>
               <FormControl>
-                <Input
-                  {...fieldProps}
-                  ref={inputRef}
-                  type="file"
-                  accept="image/*"
-                  value=""
-                  onChange={(event) => {
-                    onChange(event.target?.files?.[0] ?? undefined);
-                  }}
-                  className="hidden"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <FormField
-          control={control}
-          name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Price</FormLabel>
-              <FormControl>
-                <Input type="number" {...field} />
+                <Input className="mt-2" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,38 +62,116 @@ export function FormProduct({
 
         <FormField
           control={control}
-          name="stock"
+          name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Stock</FormLabel>
+              <FormLabel>Description (optional)</FormLabel>
+              <FormDescription className="text-xs">
+                Give your product a short and clear description.
+              </FormDescription>
               <FormControl>
-                <Input type="number" {...field} />
+                <Textarea className="mt-2" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-      </div>
 
-      <AddVariant />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price</FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      <div className="flex items-center gap-2">
-        <DialogClose asChild>
-          <Button
-            type="button"
-            variant="outline"
-            disabled={status === "executing"}
-          >
-            Cancel
+          <FormField
+            control={control}
+            name="stock"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Stock</FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <AddVariant />
+
+        <div className="flex items-center gap-2">
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={status === "executing"}
+            >
+              Cancel
+            </Button>
+          </DialogClose>
+
+          <Button disabled={status === "executing"}>
+            {status === "executing" && (
+              <Loader size={14} className="mr-1 animate-spin" />
+            )}
+            {type === "add" ? "Create" : "Update"}
           </Button>
-        </DialogClose>
+        </div>
+      </div>
 
-        <Button disabled={status === "executing"}>
-          {status === "executing" && (
-            <Loader size={14} className="mr-1 animate-spin" />
-          )}
-          {type === "add" ? "Create" : "Update"}
-        </Button>
+      <div>
+        <div className="mb-4 flex items-center gap-3">
+          <OptionB />
+          <OptionA />
+          <OptionC />
+        </div>
+
+        <div>
+          <FormField
+            control={control}
+            name="imageUrl"
+            render={({ field: { onChange, ...fieldProps } }) => (
+              <FormItem>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => inputRef.current?.click()}
+                  className="mb-2"
+                >
+                  <Upload size={16} className="mr-1.5" /> Upload Image
+                </Button>
+                <FormDescription className="text-xs">
+                  JPEG, PNG or WEBP under 2MB.
+                </FormDescription>
+                <FormControl>
+                  <Input
+                    {...fieldProps}
+                    ref={inputRef}
+                    type="file"
+                    accept="image/*"
+                    value=""
+                    onChange={(event) => {
+                      onChange(event.target?.files?.[0] ?? undefined);
+                    }}
+                    className="hidden"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </div>
     </form>
   );

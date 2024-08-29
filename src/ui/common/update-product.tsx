@@ -72,7 +72,7 @@ export function UpdateProduct(): JSX.Element {
 
   return (
     <Dialog open={isEdit} onOpenChange={setIsEdit}>
-      <DialogContent>
+      <DialogContent className="max-h-[calc(100vh-30px)] max-w-4xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Update Product</DialogTitle>
         </DialogHeader>
