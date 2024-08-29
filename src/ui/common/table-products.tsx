@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { getProducts } from "@/app/(auth)/dashboard/catalog/data";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, generateSlug } from "@/lib/utils";
 import type { Product, ProductSummary } from "@/types/product";
 import { DelEdit } from "@/ui/common/del-edit";
 import { EmptyProduct } from "@/ui/common/empty-product";
@@ -57,7 +58,11 @@ export async function TableProducts({
                   fill
                 />
               </div>
-              {product.name}
+              <Link
+                href={`/product/${product.id}-${generateSlug(product.name)}`}
+              >
+                {product.name}
+              </Link>
             </TableCell>
             <TableCell className="text-right">{product.stock}</TableCell>
             <TableCell className="text-right">
