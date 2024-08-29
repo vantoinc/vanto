@@ -27,6 +27,7 @@ export const formProduct = z.object({
     .optional(),
   price: typePrice,
   stock: typeNumber,
+  theme: z.enum(["opta", "optb", "optc"]),
   Variant: z.array(
     z.object({
       name: z.string().min(1),

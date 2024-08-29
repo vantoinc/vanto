@@ -5,6 +5,7 @@ model Product {
   imageUrl    String?  @map("image_url")
   price       Float
   stock       Int
+  theme       Theme
   userId      String   @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
@@ -14,6 +15,12 @@ model Product {
 
   @@index([name])
   @@map("catalog")
+}
+
+enum Theme {
+  opta
+  optb
+  optc
 }
 
 model Variant {

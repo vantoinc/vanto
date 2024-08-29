@@ -4,7 +4,7 @@ export function OptionA(): JSX.Element {
       viewBox="0 0 600 300"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="flex-1 border"
+      className="border"
     >
       <rect
         x="310"

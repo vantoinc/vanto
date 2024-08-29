@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "../shadcn/form";
 import { Input } from "../shadcn/input";
+import { RadioGroup, RadioGroupItem } from "../shadcn/radio-group";
 import { Textarea } from "../shadcn/textarea";
 import { OptionA } from "../skeleton/option-a";
 import { OptionB } from "../skeleton/option-b";
@@ -77,6 +78,41 @@ export function FormProduct({
           )}
         />
 
+        <FormField
+          control={control}
+          name="imageUrl"
+          render={({ field: { onChange, ...fieldProps } }) => (
+            <FormItem>
+              <Button
+                type="button"
+                size="sm"
+                variant="secondary"
+                onClick={() => inputRef.current?.click()}
+                className="mb-2"
+              >
+                <Upload size={16} className="mr-1.5" /> Upload Image
+              </Button>
+              <FormDescription className="text-xs">
+                JPEG, PNG or WEBP under 2MB.
+              </FormDescription>
+              <FormControl>
+                <Input
+                  {...fieldProps}
+                  ref={inputRef}
+                  type="file"
+                  accept="image/*"
+                  value=""
+                  onChange={(event) => {
+                    onChange(event.target?.files?.[0] ?? undefined);
+                  }}
+                  className="hidden"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={control}
@@ -107,8 +143,6 @@ export function FormProduct({
           />
         </div>
 
-        <AddVariant />
-
         <div className="flex items-center gap-2">
           <DialogClose asChild>
             <Button
@@ -129,49 +163,52 @@ export function FormProduct({
         </div>
       </div>
 
-      <div>
-        <div className="mb-4 flex items-center gap-3">
-          <OptionB />
-          <OptionA />
-          <OptionC />
-        </div>
-
-        <div>
-          <FormField
-            control={control}
-            name="imageUrl"
-            render={({ field: { onChange, ...fieldProps } }) => (
-              <FormItem>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => inputRef.current?.click()}
-                  className="mb-2"
+      <div className="space-y-4">
+        <FormField
+          control={control}
+          name="theme"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mb-3 block">Select your theme</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-row"
                 >
-                  <Upload size={16} className="mr-1.5" /> Upload Image
-                </Button>
-                <FormDescription className="text-xs">
-                  JPEG, PNG or WEBP under 2MB.
-                </FormDescription>
-                <FormControl>
-                  <Input
-                    {...fieldProps}
-                    ref={inputRef}
-                    type="file"
-                    accept="image/*"
-                    value=""
-                    onChange={(event) => {
-                      onChange(event.target?.files?.[0] ?? undefined);
-                    }}
-                    className="hidden"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                  <FormItem className="flex flex-1 items-center gap-2">
+                    <FormControl>
+                      <RadioGroupItem value="optb" />
+                    </FormControl>
+                    <FormLabel className="flex-1">
+                      <OptionB />
+                    </FormLabel>
+                  </FormItem>
+
+                  <FormItem className="flex flex-1 items-center gap-2">
+                    <FormControl>
+                      <RadioGroupItem value="opta" />
+                    </FormControl>
+                    <FormLabel className="flex-1">
+                      <OptionA />
+                    </FormLabel>
+                  </FormItem>
+
+                  <FormItem className="flex flex-1 items-center gap-2">
+                    <FormControl>
+                      <RadioGroupItem value="optc" />
+                    </FormControl>
+                    <FormLabel className="flex-1">
+                      <OptionC />
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <AddVariant />
       </div>
     </form>
   );

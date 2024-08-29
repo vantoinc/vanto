@@ -10,13 +10,14 @@ export type Product = {
   imageUrl: string | null;
   price: number;
   stock: number;
+  theme: "opta" | "optb" | "optc";
   userId: string;
   Variant: Variant[];
 } & Dates;
 
 export type ProductSummary = Pick<
   Product,
-  "name" | "price" | "stock" | "Variant"
+  "name" | "price" | "stock" | "theme" | "Variant"
 > & {
   description?: string;
 };
