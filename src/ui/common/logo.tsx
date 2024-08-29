@@ -7,7 +7,7 @@ export function Logo(): JSX.Element {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_18_31)">
+      <g clipPath="url(#clip0_18_31)">
         <path
           d="M-9.15527e-05 27.2323L39.2156 159.329L53.4758 176.4L70.5881 185.342C70.5881 185.342 84.1354 185.342 94.8306 176.4C105.526 167.459 109.804 159.329 109.804 159.329L70.5881 27.2323H-9.15527e-05Z"
           className="fill-zinc-700 dark:fill-zinc-400"
@@ -27,9 +27,9 @@ export function Logo(): JSX.Element {
           width="210.428"
           height="250"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
