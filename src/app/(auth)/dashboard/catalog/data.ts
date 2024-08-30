@@ -30,7 +30,7 @@ export const getProducts = (
 
         return { products, total };
       },
-      ["products", userId],
-      { revalidate: 180, tags: [`products_${userId}`] },
+      [`products_${userId}_${page}`],
+      { revalidate: 180, tags: [`products_${userId}_${page}`] },
     )();
   });

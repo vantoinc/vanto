@@ -60,7 +60,7 @@ export const createProduct = authActionClient
       include: { Variant: true },
     });
 
-    revalidateTag(`products_${userId}`);
+    revalidatePath("/dashboard/catalog");
   });
 
 export const updateProduct = authActionClient
@@ -99,7 +99,7 @@ export const updateProduct = authActionClient
         return product;
       });
 
-      revalidateTag(`products_${userId}`);
+      revalidateTag("/dashboard/catalog");
     },
   );
 
