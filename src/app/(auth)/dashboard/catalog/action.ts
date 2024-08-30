@@ -1,7 +1,7 @@
 "use server";
 
 import { writeFile } from "fs/promises";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import path from "path";
 import { z } from "zod";
 
@@ -99,7 +99,7 @@ export const updateProduct = authActionClient
         return product;
       });
 
-      revalidateTag("/dashboard/catalog");
+      revalidatePath("/dashboard/catalog");
     },
   );
 
