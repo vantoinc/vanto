@@ -31,6 +31,7 @@ const productData = (product: Product): ProductSummary => ({
   name: product.name,
   price: product.price,
   stock: product.stock,
+  theme: product.theme,
   description: product.description ?? undefined,
   Variant: product.Variant,
 });

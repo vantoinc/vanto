@@ -78,41 +78,6 @@ export function FormProduct({
           )}
         />
 
-        <FormField
-          control={control}
-          name="imageUrl"
-          render={({ field: { onChange, ...fieldProps } }) => (
-            <FormItem>
-              <Button
-                type="button"
-                size="sm"
-                variant="secondary"
-                onClick={() => inputRef.current?.click()}
-                className="mb-2"
-              >
-                <Upload size={16} className="mr-1.5" /> Upload Image
-              </Button>
-              <FormDescription className="text-xs">
-                JPEG, PNG or WEBP under 2MB.
-              </FormDescription>
-              <FormControl>
-                <Input
-                  {...fieldProps}
-                  ref={inputRef}
-                  type="file"
-                  accept="image/*"
-                  value=""
-                  onChange={(event) => {
-                    onChange(event.target?.files?.[0] ?? undefined);
-                  }}
-                  className="hidden"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={control}
@@ -142,6 +107,8 @@ export function FormProduct({
             )}
           />
         </div>
+
+        <AddVariant />
 
         <div className="flex items-center gap-2">
           <DialogClose asChild>
@@ -178,7 +145,7 @@ export function FormProduct({
                 >
                   <FormItem className="flex flex-1 items-center gap-2">
                     <FormControl>
-                      <RadioGroupItem value="optb" />
+                      <RadioGroupItem value="opta" />
                     </FormControl>
                     <FormLabel className="flex-1">
                       <OptionB />
@@ -187,7 +154,7 @@ export function FormProduct({
 
                   <FormItem className="flex flex-1 items-center gap-2">
                     <FormControl>
-                      <RadioGroupItem value="opta" />
+                      <RadioGroupItem value="optb" />
                     </FormControl>
                     <FormLabel className="flex-1">
                       <OptionA />
@@ -208,7 +175,40 @@ export function FormProduct({
           )}
         />
 
-        <AddVariant />
+        <FormField
+          control={control}
+          name="imageUrl"
+          render={({ field: { onChange, ...fieldProps } }) => (
+            <FormItem>
+              <Button
+                type="button"
+                size="sm"
+                variant="secondary"
+                onClick={() => inputRef.current?.click()}
+                className="mb-2"
+              >
+                <Upload size={16} className="mr-1.5" /> Upload Image
+              </Button>
+              <FormDescription className="text-xs">
+                JPEG, PNG or WEBP under 2MB.
+              </FormDescription>
+              <FormControl>
+                <Input
+                  {...fieldProps}
+                  ref={inputRef}
+                  type="file"
+                  accept="image/*"
+                  value=""
+                  onChange={(event) => {
+                    onChange(event.target?.files?.[0] ?? undefined);
+                  }}
+                  className="hidden"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </form>
   );
