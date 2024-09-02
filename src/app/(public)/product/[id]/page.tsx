@@ -36,7 +36,7 @@ function ThemeA({
   product: Product;
 }): JSX.Element {
   return (
-    <div className="relative mx-auto grid min-h-screen w-full max-w-6xl grid-cols-2 items-start gap-8">
+    <div className="relative mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 items-start gap-8 md:grid-cols-2 md:px-8">
       <div className="h-full gap-8 bg-zinc-800 p-8">
         <Image
           src={`/upload/${product.imageUrl}`}
@@ -60,9 +60,9 @@ function ThemeB({
   product: Product;
 }): JSX.Element {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-6xl items-center justify-center">
-      <div className="relative flex flex-col items-start gap-8 md:flex-row">
-        <div className="top-0 my-4 flex items-center justify-center max-md:relative md:sticky md:w-1/2">
+    <div className="mx-auto flex min-h-screen w-full max-w-5xl items-center justify-center">
+      <div className="flex w-full items-start justify-center gap-8 max-md:flex-col max-md:p-6">
+        <div className="top-0 my-4 flex w-1/2 items-center justify-center max-md:relative md:sticky">
           <Image
             src={`/upload/${product.imageUrl}`}
             alt={product.name}
@@ -71,7 +71,7 @@ function ThemeB({
             className="max-h-[300px] w-full md:max-h-[400px]"
           />
         </div>
-        <div className="my-4 flex flex-col justify-between rounded-xl bg-zinc-800 p-8 text-white shadow-xl md:w-1/2">
+        <div className="my-4 flex w-1/2 flex-col justify-between rounded-xl bg-zinc-800 p-8 text-white shadow-xl">
           {children}
         </div>
       </div>
@@ -87,10 +87,10 @@ function ThemeC({
   product: Product;
 }): JSX.Element {
   return (
-    <div className="relative mx-auto grid min-h-screen w-full max-w-6xl grid-cols-2 items-start gap-8">
-      <div className="p-8">{children}</div>
+    <div className="relative mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 items-start gap-8 md:grid-cols-2 md:px-8">
+      <div className="order-2 p-4 md:order-1 md:p-8">{children}</div>
 
-      <div className="h-full bg-zinc-800 p-8">
+      <div className="order-1 h-full bg-zinc-800 p-4 md:order-2 md:p-8">
         <Image
           src={`/upload/${product.imageUrl}`}
           alt={product.name}
